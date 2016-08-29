@@ -1,36 +1,36 @@
 from system.core.model import Model
 emailRegex = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
 
-class WelcomeModel(Model):
+class User(Model):
     def __init__(self):
-        super(WelcomeModel, self).__init__()
+        super(User, self).__init__()
 
-    def create(self, data): # VALIDATIONS LOCATED BELOW. https://github.com/ZakStrassberg/user-dashboard-pylot/blob/master/app/models/User.py#L81
-        query = "INSERT into table (column) values(:key)"
-        data = {'key': 'value'}
-        self.db.query_db(query, data)
-        return True
+    # def create(self, data): # VALIDATIONS LOCATED BELOW. https://github.com/ZakStrassberg/user-dashboard-pylot/blob/master/app/models/User.py#L81
+    #     query = "INSERT into table (column) values(:key)"
+    #     data = {'key': 'value'}
+    #     self.db.query_db(query, data)
+    #     return True
 
-    def get_all(self):
-        query = "SELECT * FROM _"
-        return self.db.query_db(query)
+    # def get_all(self):
+    #     query = "SELECT * FROM _"
+    #     return self.db.query_db(query)
 
-    def get(self, id):
-        query = "SELECT * from users where id = :id"
-        data = {'id': id}
-        return self.db.get_one(query, data)
+    # def get(self, id):
+    #     query = "SELECT * from users where id = :id"
+    #     data = {'id': id}
+    #     return self.db.get_one(query, data)
 
-    def update(self, id):
-        query = "UPDATE table SET colum=:key"
-        data = {'key': value}
-        self.db.query_db(query, data)
-        return True
+    # def update(self, id):
+    #     query = "UPDATE table SET colum=:key"
+    #     data = {'key': value}
+    #     self.db.query_db(query, data)
+    #     return True
 
-    def destroy(self, id):
-        query = "DELETE FROM table WHERE id=:id"
-        data = {'id': id}
-        self.db.query_db(query, data)
-        return True
+    # def destroy(self, id):
+    #     query = "DELETE FROM table WHERE id=:id"
+    #     data = {'id': id}
+    #     self.db.query_db(query, data)
+    #     return True
 
     ### VALIDATION ###
     # Name: {'value': name to validate, 'flash': prefix for flash msg}
