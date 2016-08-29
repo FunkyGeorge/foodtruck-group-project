@@ -41,7 +41,11 @@ class Users(Controller):
 
     # INDEX
     def index(self):
-        return self.load_view('index.html')
+        if 'id' in session:
+            user = self.models['User'].getUser(session['id'])
+        else:
+            user = ["User"]
+        return self.load_view('index.html', user=user[0])
 
     def logout(self):
         session.clear()

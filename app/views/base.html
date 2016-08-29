@@ -58,7 +58,7 @@
 			      </ul>
 			      {% if session['id'] %}
 			      	<form class="navbar-form navbar-right" action="/logout">
-			      		<label>You are signed in as user</label>
+			      		<label>You are signed in as {{user.first_name}}</label>
 			      		<label></label>
 			      		<button type="submit" class="btn btn-default">Log Out</button>
 			      	</form>

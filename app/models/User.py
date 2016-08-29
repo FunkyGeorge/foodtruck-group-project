@@ -6,6 +6,11 @@ class User(Model):
     def __init__(self):
         super(User, self).__init__()
 
+    def getUser(self, id):
+        query = "SELECT * FROM users where id = :id"
+        data = {'id': id}
+        return self.db.query_db(query, data)
+
     def validateEmail(self, form):
         EMAIL_REGEX = re.compile(r'^[a-za-z0-9\.\+_-]+@[a-za-z0-9\._-]+\.[a-za-z]*$')
         valid = True
