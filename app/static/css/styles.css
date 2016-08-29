@@ -1,3 +1,7 @@
-* {
-  font-family: monaco;
+html,body {
+	height: 100%;
+}
+
+#map-canvas {
+	height: 900px;
 }
