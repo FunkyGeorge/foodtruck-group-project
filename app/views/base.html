@@ -13,7 +13,11 @@
 		<script src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'></script>
 
 		{#<script src='https://cdnjs.cloudflare.com/ajax/libs/js-marker-clusterer/1.0.0/markerclusterer_compiled.js'></script> #}
-
+		<!-- Timepicker -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
+		<!-- Moment.js -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 		<!-- Custom CSS -->
 		<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
 
@@ -32,6 +36,16 @@
 						<div class="radio"><label><input id="day4" type="radio" name="day" value="4"></label></div>
 						<div class="radio"><label><input id="day5" type="radio" name="day" value="5"></label></div>
 						<div class="radio"><label><input id="day6" type="radio" name="day" value="6"></label></div>
+
+						<!-- TIME PICKER -->
+						<h4>Times:</h4>
+						<div class="input-group bootstrap-timepicker timepicker">
+							<input id="timepicker" type="text" class="form-control input-small">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+						</div>
+						<script type="text/javascript">
+							$('#timepicker').timepicker({});
+						</script>
 					</form>
 				</div>
 			</div>

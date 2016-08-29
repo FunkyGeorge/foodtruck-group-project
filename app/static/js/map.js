@@ -18,6 +18,7 @@ $(document).ready(function() {
     getTruckJSON();
     initalize();
     $("#filters form").on('change', function() {
+        console.log("form change")
         getTruckJSON();
     });
 });
@@ -27,10 +28,19 @@ function getTruckJSON() {
         var data = trucksjson['data']
         console.log(data);
         trucks = [];
+        var time = moment($("#timepicker").val(), "hh:mm a")
 
         // FILTERING
         for (var i=0; i < data.length; i++) {
-            if ($('#filters form input[name=day]:radio:checked').val() == data[i][8]) {
+            var day = $('#filters form input[name=day]:radio:checked').val();
+            // var time = $('#filters form #timepicker').val();
+            // var start_time = new Date("January 1, 2000 " + data[i][18]).getTime();
+            // var end_time = new Date("January 1, 2000 " + data[i][19]).getTime();
+            // console.log(start_time)
+            var start_time = moment(data[i][18], "HH:mm");
+            var end_time = moment(data[i][19], "HH:mm");
+            console.log()
+            if (day == data[i][8] && time.isBetween(start_time, end_time)) {
                 trucks.push({
                     'title': data[i][26],
                     'id': i,
