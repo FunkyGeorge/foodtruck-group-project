@@ -21,6 +21,8 @@ routes['/logout'] = 'Users#logout'
 routes['/register'] = 'Users#register'
 routes['POST']['/create'] = 'Users#create'
 routes['POST']['/login'] = 'Users#login'
+
+routes['POST']['/feedback'] = 'Trucks#feedback'
 """
     You can add routes and specify their handlers as follows:
 
