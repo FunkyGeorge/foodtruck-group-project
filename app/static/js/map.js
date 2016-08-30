@@ -53,6 +53,17 @@ $(document).ready(function() {
         console.log("form change")
         filterMarkers();
     });
+
+    $('.btnFeedback').click(function(){
+        $('#pressed').val($(this).val())
+    })
+
+    $('form#reviewBox').on('submit', function(e) {
+        e.preventDefault();
+        $.post('/feedback',$(this).serialize(), function(res){
+            
+        })
+    })
 });
 
 function createMarkersFromJSON() {
@@ -75,7 +86,7 @@ function createMarkersFromJSON() {
                 infowindow.setContent( "<div id='infowindow'>"+this.title+"<br>"+moment().to(this.endTime, true)+" left at location</div>");
                 infowindow.open(map, this);
 
-                openReviewBox();
+                openReviewBox(this);
             });
 
             markers.push(marker);
@@ -101,8 +112,11 @@ function filterMarkers() {
     }
 }
 
-function openReviewBox() {
-    
+function openReviewBox(arg) {
+    console.log(arg)
+    console.log(arg.title)
+    $('#truck').text("Name: " + arg.title)
+    $('#frmTruck').val(arg.title)
 }
 
 // function getTruckJSON() {
@@ -138,23 +152,23 @@ function openReviewBox() {
 //     );
 // }
 
-// function placeMarkers(obj) {
-//     // Adding a new marker for the object
-//     var markerPosition = new google.maps.LatLng(obj.latitude, obj.longitude);
-//     var marker = new google.maps.Marker({
-//         position: markerPosition,
-//         map: map,
-//         title: obj.title, // this works, giving the marker a title with the correct title
-//         visible: false
-//     });
-//     google.maps.event.addListener(marker, 'click', function(){
-//         infowindow.close(); // Close previously opened infowindow
-//         infowindow.setContent( "<div id='infowindow'>"+marker.title+"</div>");
-//         infowindow.open(map, marker);
-//     });
-//     markers.push(marker);
-//     filterMarkers();
-// }
+function placeMarkers(obj) {
+    // Adding a new marker for the object
+    var markerPosition = new google.maps.LatLng(obj.latitude, obj.longitude);
+    var marker = new google.maps.Marker({
+        position: markerPosition,
+        map: map,
+        title: obj.title, // this works, giving the marker a title with the correct title
+        visible: false
+    });
+    google.maps.event.addListener(marker, 'click', function(){
+        infowindow.close(); // Close previously opened infowindow
+        infowindow.setContent( "<div id='infowindow'>"+marker.title+"</div>");
+        infowindow.open(map, marker);
+    });
+    markers.push(marker);
+    filterMarkers();
+}
 
 // function removeMarkers() {
 //     for (var i = 0; i < markers.length; i++) {
