@@ -10,15 +10,17 @@
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<script   src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		<script src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false'></script>
-
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO5znt-cT3M0AEzUyVyS3000SesvA_vPs&libraries=geometry"></script>
 		{#<script src='https://cdnjs.cloudflare.com/ajax/libs/js-marker-clusterer/1.0.0/markerclusterer_compiled.js'></script> #}
-		<!-- Timepicker -->
+        
+        <!-- Timepicker -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
-		<!-- Moment.js -->
+        
+        <!-- Moment.js -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
-		<!-- Custom CSS -->
+        
+        <!-- Custom CSS -->
 		<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
 
 		<script src="{{url_for('static', filename='js/map.js')}}"></script>
@@ -80,7 +82,8 @@
 			<div class="row">
 				<div id="map-canvas" class="col-xs-9"></div>
 				<div id="filters" class="col-xs-3">
-					<form action="">
+                    <form action="">
+                        <h4>Day:</h4>
 						<div class="radio"><label><input id="day0" type="radio" name="day" value="0"></label></div>
 						<div class="radio"><label><input id="day1" type="radio" name="day" value="1" checked></label></div>
 						<div class="radio"><label><input id="day2" type="radio" name="day" value="2"></label></div>
@@ -97,7 +100,10 @@
 						</div>
 						<script type="text/javascript">
 							$('#timepicker').timepicker({});
-						</script>
+                        </script>
+
+                        <h4>Distance:</h4>
+                        <input type="text" value="9999999" name="distance">
 					</form>
 				</div>
 			</div>
