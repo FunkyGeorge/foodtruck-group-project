@@ -58,7 +58,7 @@ function createMarkersFromJSON() {
 
             google.maps.event.addListener(marker, 'click', function(){
                 infowindow.close(); // Close previously opened infowindow
-                infowindow.setContent( "<div id='infowindow'>"+this.title+"</div>");
+                infowindow.setContent( "<div id='infowindow'>"+this.title+"<br>"+moment().to(this.endTime, true)+" left at location</div>");
                 infowindow.open(map, this);
 
                 openReviewBox();
