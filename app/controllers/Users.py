@@ -88,7 +88,9 @@ class Users(Controller):
         return redirect('/')
 
 
+    def show(self):
 
+        return self.load_view('truckinfo.html')
 
 
 
