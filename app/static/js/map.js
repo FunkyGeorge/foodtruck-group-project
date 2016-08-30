@@ -60,6 +60,8 @@ function createMarkersFromJSON() {
                 infowindow.close(); // Close previously opened infowindow
                 infowindow.setContent( "<div id='infowindow'>"+this.title+"</div>");
                 infowindow.open(map, this);
+
+                openReviewBox();
             });
 
             markers.push(marker);
@@ -81,6 +83,10 @@ function filterMarkers() {
             markers[i].setVisible(false)
         }
     }
+}
+
+function openReviewBox() {
+    
 }
 
 // function getTruckJSON() {

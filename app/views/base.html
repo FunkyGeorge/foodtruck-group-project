@@ -12,100 +12,31 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO5znt-cT3M0AEzUyVyS3000SesvA_vPs&libraries=geometry"></script>
 		{#<script src='https://cdnjs.cloudflare.com/ajax/libs/js-marker-clusterer/1.0.0/markerclusterer_compiled.js'></script> #}
-        
-        <!-- Timepicker -->
+
+		<!-- Timepicker -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
-        
-        <!-- Moment.js -->
+
+		<!-- Moment.js -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
-        
-        <!-- Custom CSS -->
+
+		<!-- Custom CSS -->
 		<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
 
 		<script src="{{url_for('static', filename='js/map.js')}}"></script>
 	</head>
 	<body>
 		<div class="container-fluid">
-			<nav class="navbar navbar-inverse">
-			  <div class="container-fluid">  <!--  Navbar start -->
-			    <!-- Brand and toggle get grouped for better mobile display -->
-			    <div class="navbar-header">
-			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-			        <span class="sr-only">Toggle navigation</span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			      </button>
-			      <a class="navbar-brand" href="#">Brand</a>
-			    </div>
-
-			    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			      <ul class="nav navbar-nav">
-			        <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-			        <li><a href="#">Add to Favorites</a></li>
-			        <li class="dropdown">
-			          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Bill's Greasy Tacos <span class="caret"></span></a>
-			          <ul class="dropdown-menu">
-			            <li><a href="/show">Info</a></li>
-			            <li><a href="#" id="Review">Leave a Review</a></li>
-			            <li><a href="#">Something else here</a></li>
-			            <li role="separator" class="divider"></li>
-			            <li><a href="#">Separated link</a></li>
-			            <li role="separator" class="divider"></li>
-			            <li><a href="#">One more separated link</a></li>
-			          </ul>
-			        </li>
-			      </ul>
-			      {% if session['id'] %}
-			      	<form class="navbar-form navbar-right" action="/logout">
-			      		<label>You are signed in as {{user.first_name}}</label>
-			      		<label></label>
-			      		<button type="submit" class="btn btn-default">Log Out</button>
-			      	</form>
-			      {% else %}
-			      <form class="navbar-form navbar-right" action="/login" method="post">
-			        <div class="form-group">
-			        	<input type="text" class="form-control" name="email" placeholder="Email">
-			        	<input type="text" class="form-control" name="password" placeholder="Password">
-			        </div>
-			        <button type="submit" class="btn btn-default">Login</button>
-			      </form>
-			      {% endif %}
-			    </div><!-- /.navbar-collapse -->
-			  </div><!-- /.container-fluid -->
-			</nav>     <!-- NAVBAR END -->
-			{% if not session['id'] %}
-				<a href="/register" class="pull-right">Register Here</a>
-			{% endif %}
+			{% include "_navbar.html" %}
+			<a href="/register" class="pull-right">Register Here</a>
 			<div class="row">
-				<div id="map-canvas" class="col-xs-9"></div>
-				<div id="filters" class="col-xs-3">
-                    <form action="">
-                        <h4>Day:</h4>
-						<div class="radio"><label><input id="day0" type="radio" name="day" value="0"></label></div>
-						<div class="radio"><label><input id="day1" type="radio" name="day" value="1" checked></label></div>
-						<div class="radio"><label><input id="day2" type="radio" name="day" value="2"></label></div>
-						<div class="radio"><label><input id="day3" type="radio" name="day" value="3"></label></div>
-						<div class="radio"><label><input id="day4" type="radio" name="day" value="4"></label></div>
-						<div class="radio"><label><input id="day5" type="radio" name="day" value="5"></label></div>
-						<div class="radio"><label><input id="day6" type="radio" name="day" value="6"></label></div>
-
-						<!-- TIME PICKER -->
-						<h4>Times:</h4>
-						<div class="input-group bootstrap-timepicker timepicker">
-							<input id="timepicker" type="text" class="form-control input-small">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-						</div>
-						<script type="text/javascript">
-							$('#timepicker').timepicker({});
-                        </script>
-
-                        <h4>Distance:</h4>
-                        <input type="text" value="9999999" name="distance">
-					</form>
+				<div class="col-xs-9">
+					<div class="row">
+						<div id="map-canvas" class="col-xs-12"></div>
+						<div id="popup" class="col-xs-12"></div>
+					</div>
 				</div>
+				{% include "_sidebar.html" %}
 			</div>
 		</div>
 	</body>
