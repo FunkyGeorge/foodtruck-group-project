@@ -60,6 +60,8 @@ function createMarkersFromJSON() {
                 infowindow.close(); // Close previously opened infowindow
                 infowindow.setContent( "<div id='infowindow'>"+this.title+"</div>");
                 infowindow.open(map, this);
+
+                openReviewBox();
             });
 
             markers.push(marker);
@@ -81,6 +83,10 @@ function filterMarkers() {
             markers[i].setVisible(false)
         }
     }
+}
+
+function openReviewBox() {
+    
 }
 
 // function getTruckJSON() {
@@ -116,23 +122,23 @@ function filterMarkers() {
 //     );
 // }
 
-function placeMarkers(obj) {
-    // Adding a new marker for the object
-    var markerPosition = new google.maps.LatLng(obj.latitude, obj.longitude);
-    var marker = new google.maps.Marker({
-        position: markerPosition,
-        map: map,
-        title: obj.title, // this works, giving the marker a title with the correct title
-        visible: false
-    });
-    google.maps.event.addListener(marker, 'click', function(){
-        infowindow.close(); // Close previously opened infowindow
-        infowindow.setContent( "<div id='infowindow'>"+marker.title+"</div>");
-        infowindow.open(map, marker);
-    });
-    markers.push(marker);
-    filterMarkers();
-}
+// function placeMarkers(obj) {
+//     // Adding a new marker for the object
+//     var markerPosition = new google.maps.LatLng(obj.latitude, obj.longitude);
+//     var marker = new google.maps.Marker({
+//         position: markerPosition,
+//         map: map,
+//         title: obj.title, // this works, giving the marker a title with the correct title
+//         visible: false
+//     });
+//     google.maps.event.addListener(marker, 'click', function(){
+//         infowindow.close(); // Close previously opened infowindow
+//         infowindow.setContent( "<div id='infowindow'>"+marker.title+"</div>");
+//         infowindow.open(map, marker);
+//     });
+//     markers.push(marker);
+//     filterMarkers();
+// }
 
 // function removeMarkers() {
 //     for (var i = 0; i < markers.length; i++) {
