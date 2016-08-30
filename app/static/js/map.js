@@ -2,6 +2,7 @@ var map;
 var markers = [];
 var userMarker;
 var infowindow = new google.maps.InfoWindow();
+var circle;
 
 function initalize() {
     // Giving the map some options
@@ -30,7 +31,20 @@ function initalize() {
         icon: icon,
         draggable: true
     })
+    circle = new google.maps.Circle({
+        center: userMarker.position,
+        fillColor: '#004de8',
+        fillOpacity: 0.25,
+        map: map,
+        radius: 5000,
+        strokeColor: '#004de8',
+        strokeOpacity: 0.75,
+        strokeWeight: 1
+    })
+    userMarker.addListener('dragend', filterMarkers)
+    // distanceCircle(userMarker.position);
 }
+
 
 $(document).ready(function() {
     createMarkersFromJSON();
@@ -58,7 +72,7 @@ function createMarkersFromJSON() {
 
             google.maps.event.addListener(marker, 'click', function(){
                 infowindow.close(); // Close previously opened infowindow
-                infowindow.setContent( "<div id='infowindow'>"+this.title+"</div>");
+                infowindow.setContent( "<div id='infowindow'>"+this.title+"<br>"+moment().to(this.endTime, true)+" left at location</div>");
                 infowindow.open(map, this);
 
                 openReviewBox();
@@ -71,8 +85,10 @@ function createMarkersFromJSON() {
 }
 
 function filterMarkers() {
+    circle.setCenter(userMarker.position)
+    var maxUserDistance = parseInt($("#filters form input[name='distance']").val())
+    circle.setRadius(maxUserDistance)
     var time = moment($("#timepicker").val(), "hh:mm a");
-    var maxUserDistance = $("#filters form input[name='distance']").val()
     for (var i = 0; i < markers.length; i++) {
         var isDay = $('#filters form input[name=day]:radio:checked').val() == markers[i]['dayOrder'];
         var isTime = time.isBetween(markers[i]['startTime'], markers[i]['endTime']);
