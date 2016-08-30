@@ -14,7 +14,6 @@ class Truck(Model):
         else:
         	query = "INSERT INTO trucks (name) VALUES (:name)"
         	truck = self.db.query_db(query, data)
-        	return truck
 
 
     def favorite(self, truck, user):
