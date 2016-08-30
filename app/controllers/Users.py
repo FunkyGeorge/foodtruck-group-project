@@ -60,7 +60,6 @@ class Users(Controller):
         check = self.models['User'].validateEmail(form)
         if not check['valid']:
             for error in check['errors']:
-                print error
                 flash(error, 'email')
                 valid = False
         check = self.models['User'].validateInfo(form)
@@ -71,7 +70,6 @@ class Users(Controller):
         check = self.models['User'].validatePassword(form)
         if not check['valid']:
             for error in check['errors']:
-                print error
                 flash(error, 'password')
                 valid = False
         
@@ -85,10 +83,8 @@ class Users(Controller):
         user = self.models['User'].validateLogin(request.form)
         if user:
             session['id'] = user[0]['id']
-            print "ok"
         else:
             flash("Incorrect Username/Password")
-            print "error"
         return redirect('/')
 
 
