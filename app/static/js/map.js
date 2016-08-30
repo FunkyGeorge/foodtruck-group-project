@@ -39,6 +39,17 @@ $(document).ready(function() {
         console.log("form change")
         filterMarkers();
     });
+
+    $('.btnFeedback').click(function(){
+        $('#pressed').val($(this).val())
+    })
+
+    $('form#reviewBox').on('submit', function(e) {
+        e.preventDefault();
+        $.post('/feedback',$(this).serialize(), function(res){
+            
+        })
+    })
 });
 
 function createMarkersFromJSON() {
@@ -61,7 +72,7 @@ function createMarkersFromJSON() {
                 infowindow.setContent( "<div id='infowindow'>"+this.title+"</div>");
                 infowindow.open(map, this);
 
-                openReviewBox();
+                openReviewBox(this);
             });
 
             markers.push(marker);
@@ -85,8 +96,11 @@ function filterMarkers() {
     }
 }
 
-function openReviewBox() {
-    
+function openReviewBox(arg) {
+    console.log(arg)
+    console.log(arg.title)
+    $('#truck').text("Name: " + arg.title)
+    $('#frmTruck').val(arg.title)
 }
 
 // function getTruckJSON() {
