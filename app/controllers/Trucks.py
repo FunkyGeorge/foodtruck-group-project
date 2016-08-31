@@ -32,12 +32,8 @@ class Trucks(Controller):
         return jsonify({'status': 'true'})
 
     def review(self):
-        print "entered review method"
-        print request.form
         truck = self.models['Truck'].getTruck(request.form['action'])
-        print truck, "got the id"
         self.models['Truck'].leaveReview(truck, request.form, session['id'])
-        print "inserted review"
         return jsonify({'status': 'true'})
 
     
