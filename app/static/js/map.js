@@ -43,14 +43,22 @@ function initalize() {
     })
     userMarker.addListener('dragend', filterMarkers)
     // distanceCircle(userMarker.position);
+
+    // Set today as default day
+    // moment().day()
+    $("#filters #day.btn-group .btn:nth-child("+(moment().day()+1)+")").addClass("active")
 }
 
 
 $(document).ready(function() {
+    // Grab JSON data
     createMarkersFromJSON();
+    // Initialize the map
     initalize();
-    $("#filters form").on('change', function() {
-        console.log("form change")
+
+    // Setup event listeners
+    $("#filters input").on('change', function() {
+        console.log("input change")
         filterMarkers();
     });
 
@@ -71,8 +79,15 @@ $(document).ready(function() {
             
         })
     })
+    $('#filters .btn-group .btn').on('click', function() {
+        $(this).siblings().removeClass("active")
+        $(this).addClass("active")
+        filterMarkers();
+    })
 });
 
+// Retrives JSON data, creates a map marker for each including event listeners. Pushes
+// each marker object to markers array, then filters markers based on default filters.
 function createMarkersFromJSON() {
     $.getJSON("https://data.sfgov.org/api/views/jjew-r69b/rows.json", function(trucksjson) {
         for (var i = 0; i < trucksjson['data'].length; i++) {
@@ -102,13 +117,15 @@ function createMarkersFromJSON() {
     });
 }
 
+// Filters markers according to the filters set on sidebar. Only allows markers that
+// satisfy all filter criteria to remain visible, others are hidden.
 function filterMarkers() {
     circle.setCenter(userMarker.position)
-    var maxUserDistance = parseInt($("#filters form input[name='distance']").val())
+    var maxUserDistance = parseInt($("#filters input[name='distance']").val())
     circle.setRadius(maxUserDistance)
     var time = moment($("#timepicker").val(), "hh:mm a");
     for (var i = 0; i < markers.length; i++) {
-        var isDay = $('#filters form input[name=day]:radio:checked').val() == markers[i]['dayOrder'];
+        var isDay = $('#filters #day.btn-group .btn.active').val() == markers[i]['dayOrder'];
         var isTime = time.isBetween(markers[i]['startTime'], markers[i]['endTime']);
         var isClose =  maxUserDistance > google.maps.geometry.spherical.computeDistanceBetween(userMarker["position"], markers[i]["position"]);
         if (isDay && isTime && isClose) {
@@ -126,61 +143,3 @@ function openReviewBox(arg) {
     $('#frmTruck').val(arg.title)
     $('#frmReview').val(arg.title)
 }
-
-// function getTruckJSON() {
-//     $.getJSON("https://data.sfgov.org/api/views/jjew-r69b/rows.json", function(trucksjson) {
-//         var data = trucksjson['data']
-//         // console.log(data);
-//         trucks = [];
-//         var time = moment($("#timepicker").val(), "hh:mm a")
-
-//         // FILTERING
-//         for (var i=0; i < data.length; i++) {
-//             // var day = ;
-//             // var time = $('#filters form #timepicker').val();
-//             // var start_time = new Date("January 1, 2000 " + data[i][18]).getTime();
-//             // var end_time = new Date("January 1, 2000 " + data[i][19]).getTime();
-//             // console.log(start_time)
-//             // var start_time = moment(data[i][18], "HH:mm");
-//             // var end_time = moment(data[i][19], "HH:mm");
-//             // if (day  && )) {
-//             trucks.push({
-//                 'title': data[i][26],
-//                 'id': i,
-//                 'latitude': data[i][29],
-//                 'longitude': data[i][30],
-//             });
-//             // }
-//         }
-//         // removeMarkers();
-//         for (var i = 0; i < trucks.length; i++) {
-//             placeMarkers(trucks[i])
-//         } // end loop
-//     }
-//     );
-// }
-
-function placeMarkers(obj) {
-    // Adding a new marker for the object
-    var markerPosition = new google.maps.LatLng(obj.latitude, obj.longitude);
-    var marker = new google.maps.Marker({
-        position: markerPosition,
-        map: map,
-        title: obj.title, // this works, giving the marker a title with the correct title
-        visible: false
-    });
-    google.maps.event.addListener(marker, 'click', function(){
-        infowindow.close(); // Close previously opened infowindow
-        infowindow.setContent( "<div id='infowindow'>"+marker.title+"</div>");
-        infowindow.open(map, marker);
-    });
-    markers.push(marker);
-    filterMarkers();
-}
-
-// function removeMarkers() {
-//     for (var i = 0; i < markers.length; i++) {
-//         markers[i].setMap(null);
-//     }
-//     markers = [];
-// }

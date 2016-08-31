@@ -1,28 +1,26 @@
-<div id="filters" class="col-xs-3">
-	<form action="">
-		<h4>Day:</h4>
-		<div class="radio"><label><input id="day0" type="radio" name="day" value="0"></label></div>
-		<div class="radio"><label><input id="day1" type="radio" name="day" value="1" checked></label></div>
-		<div class="radio"><label><input id="day2" type="radio" name="day" value="2"></label></div>
-		<div class="radio"><label><input id="day3" type="radio" name="day" value="3"></label></div>
-		<div class="radio"><label><input id="day4" type="radio" name="day" value="4"></label></div>
-		<div class="radio"><label><input id="day5" type="radio" name="day" value="5"></label></div>
-		<div class="radio"><label><input id="day6" type="radio" name="day" value="6"></label></div>
+<div id="filters" class="col-xs-4">
+	<h4>Day:</h4>
+	<div id="day" class="btn-group btn-group-sm" role="group">
+		<button class="btn btn-default" type="button" value="0">Sunday</button>
+		<button class="btn btn-default" type="button" value="1">Monday</button>
+		<button class="btn btn-default" type="button" value="2">Tuesday</button>
+		<button class="btn btn-default" type="button" value="3">Wednesday</button>
+		<button class="btn btn-default" type="button" value="4">Thursday</button>
+		<button class="btn btn-default" type="button" value="5">Friday</button>
+		<button class="btn btn-default" type="button" value="6">Saturday</button>
+	</div>
 
-		<!-- TIME PICKER -->
-		<h4>Times:</h4>
-		<div class="input-group bootstrap-timepicker timepicker">
-			<input id="timepicker" type="text" class="form-control input-small">
-			<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-		</div>
-		<script type="text/javascript">
-			$('#timepicker').timepicker({});
-		</script>
+	<!-- TIME PICKER -->
+	<h4>Times:</h4>
+	<div class="input-group bootstrap-timepicker timepicker">
+		<input id="timepicker" type="text" class="form-control input-small">
+		<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+	</div>
+	<script type="text/javascript">
+		$('#timepicker').timepicker({});
+	</script>
 
-		<h4>Distance:</h4>
-		<input type="text" value="10000" name="distance">
-		<br>
+	<h4>Distance:</h4>
+	<input type="text" value="10000" name="distance">
 		{% include "_reviewForm.html" %}
-
-	</form>
 </div>
