@@ -47,14 +47,6 @@ class Trucks(Controller):
         self.models['Truck'].leaveReview(truck, request.form, session['id'])
         return jsonify({'status': 'true'})
 
-    
-    def createReminder(self):
-        #get formatted date
-        #get arg string
-        sched.add_job( self.reminderText, 'date', run_date="2016-08-31 16:05:2", args=["testing456"])
-        # sched.add_job( self.reminderText, args=["testing456"])
-        sched.start()
-
     def populateReviews(self):
        reviews = self.models['Truck'].getReviews(request.form)
        return self.load_view('_getReviews.html', reviews=reviews)
@@ -70,5 +62,13 @@ class Trucks(Controller):
             return jsonify(favorites)
         else:
             return jsonify({'status': 'false'})
+
+    def createReminder(self):
+        #get formatted date
+        #get arg string
+        sched.add_job( self.reminderText, 'date', run_date="2016-08-31 16:05:2", args=["testing456"])
+        # sched.add_job( self.reminderText, args=["testing456"])
+        sched.start()
+
     def reminderText(self, body):
         send_text(body)
