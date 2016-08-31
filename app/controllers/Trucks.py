@@ -7,8 +7,8 @@ scheduler = BackgroundScheduler()
 def send_text(body):
     client = TwilioRestClient(twilioauth.account, twilioauth.token)
     client.messages.create(
-        to='+19092578727',
-        from_='+12016853820',
+        to='+12096200032',
+        from_='+12097796165',
         body=body
     )
 
@@ -49,7 +49,7 @@ class Trucks(Controller):
 
     
     def createReminder(self):
-        scheduler.add_job(self.reminderText("testing456"), minutes=1)
+        scheduler.add_job(self.reminderText("testing456"), 60)
 
     def reminderText(self, body):
         send_text(body)
