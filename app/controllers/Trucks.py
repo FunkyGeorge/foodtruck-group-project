@@ -20,17 +20,19 @@ class Trucks(Controller):
             # flash("Log in to use this feature")
             return jsonify({'status': 'true'})
 
-        print request.form
         if not request.form['truckName']:
             return jsonify({'status': 'true'})
-        print "passed checks"
         if request.form['action'] == 'Favorite':
             truck = self.models['Truck'].getTruck(request.form['truckName'])
             self.models['Truck'].favorite(truck, session['id'])
         elif request.form['action'] == 'Leave a Review':
             truck = self.models['Truck'].getTruck(request.form['truckName'])
-            #add a review
+            #show review method
 
+        return jsonify({'status': 'true'})
+
+    def review(self):
+        print request.form
         return jsonify({'status': 'true'})
 
     

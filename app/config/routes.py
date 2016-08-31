@@ -23,6 +23,7 @@ routes['POST']['/create'] = 'Users#create'
 routes['POST']['/login'] = 'Users#login'
 
 routes['POST']['/feedback'] = 'Trucks#feedback'
+routes['POST']['/review'] = 'Trucks#review'
 """
     You can add routes and specify their handlers as follows:
 
