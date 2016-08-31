@@ -137,9 +137,10 @@ function filterMarkers() {
 }
 
 function openReviewBox(arg) {
-    console.log(arg)
-    console.log(arg.title)
     $('#truck').text("Name: " + arg.title)
     $('#frmTruck').val(arg.title)
     $('#frmReview').val(arg.title)
+    $.post('/populateReviews',$('#reviewBox').serialize(), function(res){
+            
+    })
 }

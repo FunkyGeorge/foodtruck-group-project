@@ -37,3 +37,7 @@ class Trucks(Controller):
         return jsonify({'status': 'true'})
 
     
+    def populateReviews(self):
+        reviews = self.models['Truck'].getReviews(request.form)
+
+        return jsonify(reviews)
