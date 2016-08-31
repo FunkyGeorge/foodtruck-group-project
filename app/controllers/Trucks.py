@@ -1,8 +1,8 @@
 from system.core.controller import *
 from twilio.rest import TwilioRestClient
 import twilioauth
-from apscheduler.schedulers.background import BackgroundScheduler
-scheduler = BackgroundScheduler()
+from apscheduler.schedulers.blocking import BlockingScheduler
+sched = BlockingScheduler()
 
 def send_text(body):
     client = TwilioRestClient(twilioauth.account, twilioauth.token)
@@ -49,7 +49,11 @@ class Trucks(Controller):
 
     
     def createReminder(self):
-        scheduler.add_job(self.reminderText("testing456"), 60)
+        #get formatted date
+        #get arg string
+        sched.add_job( self.reminderText, 'date', run_date="2016-08-31 16:05:2", args=["testing456"])
+        # sched.add_job( self.reminderText, args=["testing456"])
+        sched.start()
 
     def reminderText(self, body):
         send_text(body)
