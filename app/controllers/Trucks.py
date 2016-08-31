@@ -45,3 +45,15 @@ class Trucks(Controller):
         rating = self.models['Truck'].getRating(request.form)
         rating='{0:.2g}'.format(rating)
         return jsonify({'rating': rating})
+
+    def getFavs(self):
+        if 'id' in session:
+            favorites = self.models['Truck'].favsList(session['id'])
+            return jsonify(favorites)
+        else:
+            return jsonify({'status': 'false'})
+
+
+
+
+

@@ -26,6 +26,7 @@ routes['POST']['/feedback'] = 'Trucks#feedback'
 routes['POST']['/review'] = 'Trucks#review'
 routes['POST']['/populateReviews'] = 'Trucks#populateReviews'
 routes['POST']['/getRating'] ='Trucks#getRating'
+routes['POST']['/getFavs'] = 'Trucks#getFavs'
 """
     You can add routes and specify their handlers as follows:
 
