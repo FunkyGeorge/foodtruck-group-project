@@ -27,8 +27,12 @@ class Trucks(Controller):
             self.models['Truck'].favorite(truck, session['id'])
         elif request.form['action'] == 'Leave a Review':
             truck = self.models['Truck'].getTruck(request.form['truckName'])
-            #add a review
+            #show review method
 
+        return jsonify({'status': 'true'})
+
+    def review(self):
+        print request.form
         return jsonify({'status': 'true'})
 
     
