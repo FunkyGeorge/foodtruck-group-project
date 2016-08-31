@@ -55,7 +55,6 @@ $(document).ready(function() {
     createMarkersFromJSON();
     // Initialize the map
     initalize();
-
     // Setup event listeners
     $("#filters input").on('change', function() {
         console.log("input change")
@@ -69,14 +68,14 @@ $(document).ready(function() {
     $('form#feedbackBox').on('submit', function(e) {
         e.preventDefault();
         $.post('/feedback',$(this).serialize(), function(res){
-            
+
         })
     })
 
     $('form#reviewBox').on('submit', function(e){
         e.preventDefault();
         $.post('/review',$(this).serialize(), function(res){
-            
+
         })
     })
     $('#filters .btn-group .btn').on('click', function() {
@@ -90,6 +89,7 @@ $(document).ready(function() {
 // each marker object to markers array, then filters markers based on default filters.
 function createMarkersFromJSON() {
     $.getJSON("https://data.sfgov.org/api/views/jjew-r69b/rows.json", function(trucksjson) {
+        console.log(trucksjson['data'][1])
         for (var i = 0; i < trucksjson['data'].length; i++) {
             var obj = trucksjson['data'][i];
             var latlong = new google.maps.LatLng(obj[29], obj[30]);
@@ -100,7 +100,10 @@ function createMarkersFromJSON() {
                 title: obj[26],
                 dayOrder: obj[8],
                 startTime: moment(obj[18], "HH:mm"),
-                endTime: moment(obj[19], "HH:mm")
+                endTime: moment(obj[19], "HH:mm"),
+                menu: obj[15],
+                location: obj[13],
+                time: obj[14]
             });
 
             google.maps.event.addListener(marker, 'click', function(){
@@ -137,9 +140,8 @@ function filterMarkers() {
 }
 
 function openReviewBox(arg) {
-    console.log(arg)
-    console.log(arg.title)
-    $('#truck').text("Name: " + arg.title)
-    $('#frmTruck').val(arg.title)
-    $('#frmReview').val(arg.title)
+    $('#reviewForm').slideDown();
+    $('#reviewForm h4').html(arg.title)
+    $('#reviewForm #truckLocation').html(arg.location + '<br>' + arg.time)
+    $('#reviewForm #menu').html(arg.menu)
 }
