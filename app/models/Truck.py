@@ -58,3 +58,23 @@ class Truck(Model):
         stars = stars[0]['avg']
         
         return stars
+
+
+    def favsList(self, id):
+        query = '''SELECT name FROM favorites f
+            JOIN trucks t ON f.truck_id = t.id
+            WHERE user_id = :id'''
+        data = {'id': id}
+        return self.db.query_db(query, data)
+
+
+
+
+
+
+
+
+
+
+
+
