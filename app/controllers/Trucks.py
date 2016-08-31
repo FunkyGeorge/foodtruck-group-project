@@ -18,10 +18,10 @@ class Trucks(Controller):
     def feedback(self):
         if not 'id' in session:
             # flash("Log in to use this feature")
-            return jsonify({'status': 'true'})
+            return jsonify({'status': 'false'})
 
         if not request.form['truckName']:
-            return jsonify({'status': 'true'})
+            return jsonify({'status': 'false'})
         if request.form['action'] == 'Favorite':
             truck = self.models['Truck'].getTruck(request.form['truckName'])
             self.models['Truck'].favorite(truck, session['id'])
@@ -40,3 +40,8 @@ class Trucks(Controller):
     def populateReviews(self):
         reviews = self.models['Truck'].getReviews(request.form)
         return self.load_view('_getReviews', reviews=reviews)
+
+    def getRating(self):
+        rating = self.models['Truck'].getRating(request.form)
+        rating='{0:.2g}'.format(rating)
+        return jsonify({'rating': rating})
