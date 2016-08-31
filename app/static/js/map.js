@@ -67,7 +67,7 @@ $(document).ready(function() {
 
     $('form#reviewBox').on('submit', function(e){
         e.preventDefault();
-        $.post('/review',$(self).serialize(), function(res){
+        $.post('/review',$(this).serialize(), function(res){
             
         })
     })

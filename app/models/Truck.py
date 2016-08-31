@@ -25,3 +25,16 @@ class Truck(Model):
     	self.db.query_db(sql, data)
 
     	return True
+
+    def leaveReview(self, truck, form, id):
+        print "entered leave review method"
+        sql = "INSERT INTO reviews (review, rating, created_at, updated_at, user_id, truck_id) "\
+        "VALUES (:review, :rating, NOW(), NOW(), :id, :truck)"
+        data = {
+            'review': form['text'],
+            'rating': form['rate'],
+            'id': id,
+            'truck': truck
+        }
+        self.db.query_db(sql, data)
+        return True
