@@ -140,11 +140,13 @@ function filterMarkers() {
 }
 
 function openReviewBox(arg) {
+    $('#frmReview').val(arg.title)
     $('#reviewForm').slideDown();
     $('#reviewForm h4').html(arg.title)
     $('#reviewForm #truckLocation').html(arg.location + '<br>' + arg.time)
     $('#reviewForm #menu').html(arg.menu)
     $.post('/populateReviews',$('#reviewBox').serialize(), function(res){
-            
+        console.log(res)
+        $('#reviewForm #reviews .review').html(res);
     })
 }

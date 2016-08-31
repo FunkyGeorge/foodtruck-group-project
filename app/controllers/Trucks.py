@@ -39,5 +39,4 @@ class Trucks(Controller):
     
     def populateReviews(self):
         reviews = self.models['Truck'].getReviews(request.form)
-
-        return jsonify(reviews)
+        return self.load_view('_getReviews', reviews=reviews)
