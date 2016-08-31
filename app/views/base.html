@@ -30,13 +30,7 @@
 	</head>
 	<body>
 		<div class="container-fluid">
-			{% include "_navbar.html" %}
-			{% with errors = get_flashed_messages() %}
-				{% for error in errors %}
-					<p class="errors">{{ error }}</p>
-				{% endfor %}
-			{% endwith %}
-			<a href="/register" class="pull-right">Register Here</a>
+            {# {% include "_navbar.html" %} #}
 			<div class="row">
 				<div class="col-xs-8">
 					<div class="row">

@@ -5,14 +5,14 @@ from system.core.controller import *
 class Trucks(Controller):
     def __init__(self, action):
         super(Trucks, self).__init__(action)
-        
+
         self.load_model('Truck')
         self.db = self._app.db
-        
+
 
     # INDEX
     def index(self):
-        
+
         return self.load_view('index.html')
 
     def feedback(self):
@@ -36,10 +36,10 @@ class Trucks(Controller):
         self.models['Truck'].leaveReview(truck, request.form, session['id'])
         return jsonify({'status': 'true'})
 
-    
+
     def populateReviews(self):
-        reviews = self.models['Truck'].getReviews(request.form)
-        return self.load_view('_getReviews', reviews=reviews)
+       reviews = self.models['Truck'].getReviews(request.form)
+       return self.load_view('_getReviews', reviews=reviews)
 
     def getRating(self):
         rating = self.models['Truck'].getRating(request.form)
@@ -52,8 +52,3 @@ class Trucks(Controller):
             return jsonify(favorites)
         else:
             return jsonify({'status': 'false'})
-
-
-
-
-

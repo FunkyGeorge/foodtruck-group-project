@@ -1,0 +1,9 @@
+{% if reviews|length == 0 %}
+<p>No reviews yet, leave one below.</p>
+{% endif %} 
+{% for review in reviews %}
+	<div class="review">
+		<strong>{{ review.first_name }}</strong> &mdash; {{ review.rating }} stars
+		<p>{{ review.review }} {{ review.updated_at }}</p>
+</div>
+{% endfor %}

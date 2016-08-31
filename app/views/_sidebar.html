@@ -1,29 +1,44 @@
 <div id="filters" class="col-xs-4">
-	<h4>Day:</h4>
-	<div id="day" class="btn-group btn-group-sm" role="group">
-		<button class="btn btn-default" type="button" value="0">Sunday</button>
-		<button class="btn btn-default" type="button" value="1">Monday</button>
-		<button class="btn btn-default" type="button" value="2">Tuesday</button>
-		<button class="btn btn-default" type="button" value="3">Wednesday</button>
-		<button class="btn btn-default" type="button" value="4">Thursday</button>
-		<button class="btn btn-default" type="button" value="5">Friday</button>
-		<button class="btn btn-default" type="button" value="6">Saturday</button>
+	<div id="user">
+			{% with errors = get_flashed_messages() %}
+				{% for error in errors %}
+					<p class="errors">{{ error }}</p>
+				{% endfor %}
+			{% endwith %}
+		{% if session['id'] %}
+		You are signed in as {{user.first_name}} <a class="pull-right" href="/logout">Log out</a>
+		{% else %}
+			<a href="/register" class="pull-right">Login/register link</a>
+		{% endif %}
 	</div>
+	<div id="options">
+		<h4>Day:</h4>
+		<div id="day" class="btn-group btn-group-sm" role="group">
+			<button class="btn btn-default" type="button" value="0">Sunday</button>
+			<button class="btn btn-default" type="button" value="1">Monday</button>
+			<button class="btn btn-default" type="button" value="2">Tuesday</button>
+			<button class="btn btn-default" type="button" value="3">Wednesday</button>
+			<button class="btn btn-default" type="button" value="4">Thursday</button>
+			<button class="btn btn-default" type="button" value="5">Friday</button>
+			<button class="btn btn-default" type="button" value="6">Saturday</button>
+		</div>
 
-	<!-- TIME PICKER -->
-	<h4>Times:</h4>
-	<div class="input-group bootstrap-timepicker timepicker">
-		<input id="timepicker" type="text" class="form-control input-small">
-		<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-	</div>
-	<script type="text/javascript">
-		$('#timepicker').timepicker({});
-	</script>
+		<!-- TIME PICKER -->
+		<h4>Times:</h4>
+		<div class="input-group bootstrap-timepicker timepicker">
+			<input id="timepicker" type="text" class="form-control input-small">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+		</div>
+		<script type="text/javascript">
+			$('#timepicker').timepicker({});
+		</script>
 
-	<h4>Distance:</h4>
-	<div class="input-group">
-		<input type="text" class="form-control" value="10000" name="distance" placeholder="Distance">
-		<div class="input-group-addon">meters</div>
+		<h4>Distance:</h4>
+		<div class="input-group">
+			<input type="text" class="form-control" value="10000" name="distance" placeholder="Distance">
+			<div class="input-group-addon">meters</div>
+		</div>
+
 	</div>
 	{% include "_reviewForm.html" %}
 </div>
