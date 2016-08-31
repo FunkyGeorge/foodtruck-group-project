@@ -20,6 +20,9 @@
 		<!-- Moment.js -->
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 
+		<!-- star ratings css -->
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
 		<!-- Custom CSS -->
 		<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
 
@@ -44,6 +47,7 @@
 				{% include "_sidebar.html" %}
 				{% include "_view.html" %}
 			</div>
+			{% include "_reviewForm.html" %}
 		</div>
 	</body>
 </html>
