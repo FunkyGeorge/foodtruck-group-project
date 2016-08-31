@@ -21,6 +21,9 @@
 	</script>
 
 	<h4>Distance:</h4>
-	<input type="text" value="10000" name="distance">
-		{% include "_reviewForm.html" %}
+	<div class="input-group">
+		<input type="text" class="form-control" value="10000" name="distance" placeholder="Distance">
+		<div class="input-group-addon">meters</div>
+	</div>
+	{% include "_reviewForm.html" %}
 </div>
