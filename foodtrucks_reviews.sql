@@ -37,7 +37,7 @@ CREATE TABLE `reviews` (
   KEY `fk_reviews_trucks1_idx` (`truck_id`),
   CONSTRAINT `fk_reviews_trucks1` FOREIGN KEY (`truck_id`) REFERENCES `trucks` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_reviews_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,6 +46,7 @@ CREATE TABLE `reviews` (
 
 LOCK TABLES `reviews` WRITE;
 /*!40000 ALTER TABLE `reviews` DISABLE KEYS */;
+INSERT INTO `reviews` VALUES (1,'First Review','5','2016-08-30 23:18:50','2016-08-30 23:18:50',1,3),(2,'Great for late night hot dogs! would recommend to anyone with late night munchies','5','2016-08-30 23:20:35','2016-08-30 23:20:35',1,11),(3,'steamiest hot dogs','4','2016-08-30 23:21:00','2016-08-30 23:21:00',1,3),(4,'great hot dogs but you never know where he will show up. 2 stars!','2','2016-08-30 23:22:03','2016-08-30 23:22:03',1,3),(5,'Trash food','1','2016-08-31 12:11:29','2016-08-31 12:11:29',1,5);
 /*!40000 ALTER TABLE `reviews` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-29 16:50:52
+-- Dump completed on 2016-08-31 12:14:11
