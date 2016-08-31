@@ -39,7 +39,7 @@ class Trucks(Controller):
 
     def populateReviews(self):
        reviews = self.models['Truck'].getReviews(request.form)
-       return self.load_view('_getReviews', reviews=reviews)
+       return self.load_view('_getReviews.html', reviews=reviews)
 
     def getRating(self):
         rating = self.models['Truck'].getRating(request.form)
