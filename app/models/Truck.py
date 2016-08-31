@@ -39,11 +39,22 @@ class Truck(Model):
         return True
 
     def getReviews(self, form):
-        query = '''SELECT r.review, r.rating, r.updated_at, u.first_name FROM reviews r
+        query = '''SELECT r.review, r.rating, DATE_FORMAT(r.updated_at, '%b-%e-%Y %I:%i%p') as updated_at, u.first_name FROM reviews r
             JOIN users u on u.id = r.user_id
             WHERE truck_id IN 
             (SELECT id FROM trucks WHERE name = :name)'''
         data = {
             'name': form['action']
         }
-        return self.db.query_db(query,data)   
+        return self.db.query_db(query,data) 
+
+    def getRating(self, form):
+        query = '''SELECT ifnull(avg(rating), 0) as avg from reviews WHERE truck_id IN 
+        (SELECT id FROM trucks WHERE name = :name)'''
+        data = {
+            'name': form['action']
+        }
+        stars = self.db.query_db(query, data)
+        stars = stars[0]['avg']
+        
+        return stars

@@ -146,9 +146,10 @@ function openReviewBox(arg) {
     $('#reviewForm #truckLocation').html(arg.location + '<br>' + arg.time)
     $('#reviewForm #menu').html(arg.menu)
     // $('#reviewForm #reviews .review').html("""");
-
+    $.post('/getRating',$('#reviewBox').serialize(), function(res){
+        $('#reviewForm #avgRating').html(res['rating']+"/5 stars");
+    })
     $.post('/populateReviews',$('#reviewBox').serialize(), function(res){
-        console.log(res)
         $('#reviewForm #reviews .review').html(res);
     })
 }
