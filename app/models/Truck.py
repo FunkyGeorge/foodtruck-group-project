@@ -37,3 +37,13 @@ class Truck(Model):
         }
         self.db.query_db(sql, data)
         return True
+
+    def getReviews(self, form):
+        query = '''SELECT r.review, r.rating, r.updated_at, u.first_name FROM reviews r
+            JOIN users u on u.id = r.user_id
+            WHERE truck_id IN 
+            (SELECT id FROM trucks WHERE name = :name)'''
+        data = {
+            'name': form['action']
+        }
+        return self.db.query_db(query,data)   

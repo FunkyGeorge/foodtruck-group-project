@@ -1,0 +1,9 @@
+{% for review in reviews %}
+	<div class="review">
+		{{ review.first_name }}
+		{{ review.rating }}
+		{{ review.review }}
+		{{ review.updated_at }}
+
+	</div>
+{% endfor %}
