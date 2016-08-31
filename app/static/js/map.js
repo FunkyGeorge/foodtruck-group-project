@@ -58,9 +58,16 @@ $(document).ready(function() {
         $('#pressed').val($(this).val())
     })
 
-    $('form#reviewBox').on('submit', function(e) {
+    $('form#feedbackBox').on('submit', function(e) {
         e.preventDefault();
         $.post('/feedback',$(this).serialize(), function(res){
+            
+        })
+    })
+
+    $('form#reviewBox').on('submit', function(e){
+        e.preventDefault();
+        $.post('/review',$(this).serialize(), function(res){
             
         })
     })
@@ -117,6 +124,7 @@ function openReviewBox(arg) {
     console.log(arg.title)
     $('#truck').text("Name: " + arg.title)
     $('#frmTruck').val(arg.title)
+    $('#frmReview').val(arg.title)
 }
 
 // function getTruckJSON() {
