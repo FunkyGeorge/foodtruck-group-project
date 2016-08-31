@@ -1,18 +1,29 @@
 from system.core.controller import *
+from twilio.rest import TwilioRestClient
+import twilioauth
+from apscheduler.schedulers.background import BackgroundScheduler
+scheduler = BackgroundScheduler()
 
-
+def send_text(body):
+    client = TwilioRestClient(twilioauth.account, twilioauth.token)
+    client.messages.create(
+        to='+19092578727',
+        from_='+12016853820',
+        body=body
+    )
 
 class Trucks(Controller):
     def __init__(self, action):
         super(Trucks, self).__init__(action)
-        
+
         self.load_model('Truck')
         self.db = self._app.db
-        
+
 
     # INDEX
     def index(self):
-        
+        send_text("testing123")
+        self.createReminder()
         return self.load_view('index.html')
 
     def feedback(self):
@@ -37,3 +48,8 @@ class Trucks(Controller):
         return jsonify({'status': 'true'})
 
     
+    def createReminder(self):
+        scheduler.add_job(self.reminderText("testing456"), minutes=1)
+
+    def reminderText(self, body):
+        send_text(body)
