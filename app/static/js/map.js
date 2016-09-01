@@ -98,17 +98,18 @@ $(document).ready(function() {
     $('#filters form#reminder').on('submit', function(e) {
         e.preventDefault();
         console.log($('#filters form#reminder input[name=date]').val())
-        var reminderTime = moment($('#filters form#reminder input[name=date]').val(), "HH:mm:ss")
-        console.log(reminderTime)
+        var reminderTime = moment($('#filters form#reminder input[name=date]').val(), "LLLL")
+        console.log(reminderTime.format("HH:mm:ss"))
         // Set up # of days to add to startTime
         var intDay = parseInt($('#filters #day button.active').val());
         if (moment().day() > intDay) {
             intDay += 7
         }
-        console.log(intDay)
-        reminderTime.day(intDay)
-        console.log(reminderTime)
-        $('#filters form#reminder input[name=date]').val(reminderTime)
+        if (reminderTime.isBefore()) {
+            reminderTime = moment().add(20, 'seconds')
+        }
+// .day(intDay)
+        $('#filters form#reminder input[name=date]').val(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         $.post('/createReminder', $(this).serialize(), function(res) {
             $('#filters form#reminder button').removeClass("btn-primary").addClass("btn-success").html("Reminder sent!")
         })
@@ -118,7 +119,6 @@ $(document).ready(function() {
 // Retrives JSON data, creates a map marker for each including event listeners. Pushes
 // each marker object to markers array, then filters markers based on default filters.
 function createMarkersFromJSON() {
-    var icon = iconConstructor('#d12')
     $.getJSON("https://data.sfgov.org/api/views/jjew-r69b/rows.json", function(trucksjson) {
         userFavs = $.get('/getFavs', function(favorites){
             favIcon = iconConstructor('#fc0')
@@ -140,10 +140,6 @@ function createMarkersFromJSON() {
                     location: obj[13],
                     time: obj[14],
                 });
-
-                if (i < 5) {
-                    console.log(marker.startTime)
-                }
 
                 if (favorites['favorites']) {
                     for (var j = 0; j < favorites['favorites'].length; j++) {

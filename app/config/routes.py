@@ -11,5 +11,5 @@ routes['POST']['/review'] = 'Trucks#review'
 routes['POST']['/populateReviews'] = 'Trucks#populateReviews'
 routes['POST']['/getRating'] ='Trucks#getRating'
 routes['GET']['/getFavs'] = 'Trucks#getFavs'
-routes['GET']['/createReminder'] = 'Trucks#configReminder'
+routes['POST']['/createReminder'] = 'Trucks#configReminder'
 
