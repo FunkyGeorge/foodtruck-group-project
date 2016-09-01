@@ -71,10 +71,15 @@ $(document).ready(function() {
     })
 
     $('form#favBox').on('submit', function(e) {
+        var favorite = true
         e.preventDefault();
         $.post('/favorite',$(this).serialize(), function(res){
 
         })
+        if ($('#reviewForm #favBox input[name="favorite"]').val() == 0){
+            favorite = false;
+        }
+        checkFavorite(favorite);
     })
 
     $('form#reviewBox').on('submit', function(e){
@@ -120,8 +125,7 @@ function createMarkersFromJSON() {
                 if (favorites['favorites']) {
                     for (var j = 0; j < favorites['favorites'].length; j++) {
                         if (marker.title == favorites['favorites'][j]['name']) {
-                            marker.setIcon(favIcon);
-                            marker.favorite = true;
+                            handleFavorites(marker)
                         }
                     }
                 }
@@ -139,6 +143,16 @@ function createMarkersFromJSON() {
         });
         filterMarkers();
     });
+}
+
+function handleFavorites(marker) {
+    if (!marker.favorite) {
+        marker.setIcon(favIcon);
+        marker.favorite = true;
+    } else {
+        marker.setIcon();
+        marker.favorite = false;
+    }
 }
 
 // function getFavorites() {
@@ -191,14 +205,18 @@ function openReviewBox(arg) {
     $.post('/getRating',$('#reviewBox').serialize(), function(res){
         $('#reviewForm h4#truckName span.label').html(res['rating']+"/5 stars");
     })
-    if (arg.favorite == true) {
+    checkFavorite(arg.favorite);
+    populateReviews()
+}
+
+function checkFavorite(favorite) {
+    if (favorite == true) {
         $('#reviewForm #favBox input[name="favorite"]').val(0)
         $('#reviewForm #favBox button').removeClass("btn-success").addClass("btn-danger").html("Unfavorite")
     } else {
         $('#reviewForm #favBox input[name="favorite"]').val(1)
         $('#reviewForm #favBox button').removeClass("btn-danger").addClass("btn-success").html("Favorite")
     }
-    populateReviews()
 }
 
 function populateReviews() {
