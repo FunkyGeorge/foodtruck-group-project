@@ -29,12 +29,13 @@ CREATE TABLE `users` (
   `first_name` varchar(45) DEFAULT NULL,
   `last_name` varchar(45) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
   `access_key` varchar(255) DEFAULT NULL,
+  `phone` varchar(10) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `location` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +44,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'George','Miranda','funkybuns@yahoo.com','12345678','2016-08-29 16:11:13','2016-08-29 16:11:13','(37.7749, -122.4194)'),(2,'Pablo','Picasso','user1@gmail.com','12345678','2016-08-29 16:14:48','2016-08-29 16:14:48','(37.7749, -122.4194)'),(3,'Jimmy','John','user2@gmail.com','12345678','2016-08-29 16:23:38','2016-08-29 16:23:38','(37.7749, -122.4194)');
+INSERT INTO `users` VALUES (1,'George','Miranda','funkybuns@yahoo.com','(37.7749, -122.4194)','12345678',NULL,'2016-08-29 16:11:13','2016-08-29 16:11:13'),(2,'Pablo','Picasso','user1@gmail.com','(37.7749, -122.4194)','12345678',NULL,'2016-08-29 16:14:48','2016-08-29 16:14:48'),(3,'Jimmy','John','user2@gmail.com','(37.7749, -122.4194)','12345678',NULL,'2016-08-29 16:23:38','2016-08-29 16:23:38'),(4,'user','tres','user3@gmail.com','(37.7749, -122.4194)','12345678',NULL,'2016-08-31 17:38:10','2016-08-31 17:38:10'),(5,'user','cinco','user5@gmail.com','(37.7749, -122.4194)','12345678',NULL,'2016-08-31 20:37:37','2016-08-31 20:37:37'),(6,'Ocho','Cinco','user8@gmail.com','(37.7749, -122.4194)','12345678',NULL,'2016-09-01 11:18:32','2016-09-01 11:18:32');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +57,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-31 12:14:12
+-- Dump completed on 2016-09-01 12:58:02
