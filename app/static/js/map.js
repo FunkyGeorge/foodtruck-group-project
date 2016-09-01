@@ -124,19 +124,23 @@ function createMarkersFromJSON() {
 
             markers.push(marker);
         }
+        getFavorites();
         filterMarkers();
     });
 }
 
-// Filters markers according to the filters set on sidebar. Only allows markers that
-// satisfy all filter criteria to remain visible, others are hidden.
-function filterMarkers() {
+function getFavorites() {
     // Favorites
     favIcon = iconConstructor('#fc0')
     userFavs = $.get('/getFavs', function(res){
         console.log(res);
         return res;
     });
+}
+
+// Filters markers according to the filters set on sidebar. Only allows markers that
+// satisfy all filter criteria to remain visible, others are hidden.
+function filterMarkers() {
 
     circle.setCenter(userMarker.position)
     var maxUserDistance = parseInt($("#filters input[name='distance']").val())
@@ -167,13 +171,12 @@ function openReviewBox(arg) {
     $('#frmReview').val(arg.title)
     $('#frmFav').val(arg.title)
     $('#reviewForm').slideDown();
-    $('#reviewForm h4').html(arg.title)
+    $('#reviewForm h4#truckName').html(arg.title + " <span class='label label-warning'></span>")
     $('#reviewForm #truckLocation').html(arg.location + '<br>' + arg.time)
     $('#reviewForm #menu').html(arg.menu)
     // $('#reviewForm #reviews .review').html("""");
     $.post('/getRating',$('#reviewBox').serialize(), function(res){
-        console.log(res['rating'])
-        $('#reviewForm #avgRating').html(res['rating']+"/5 stars");
+        $('#reviewForm h4#truckName span.label').html(res['rating']+"/5 stars");
     })
     populateReviews()
 }
