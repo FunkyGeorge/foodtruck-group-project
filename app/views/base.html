@@ -13,12 +13,8 @@
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO5znt-cT3M0AEzUyVyS3000SesvA_vPs&libraries=geometry"></script>
 		{#<script src='https://cdnjs.cloudflare.com/ajax/libs/js-marker-clusterer/1.0.0/markerclusterer_compiled.js'></script> #}
 
-		<!-- Timepicker -->
+		<!-- Timepicker css -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
-
-		<!-- Moment.js -->
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
 
 		<!-- star ratings css -->
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -26,20 +22,10 @@
 		<!-- Custom CSS -->
 		<link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
 
-		<script src="{{url_for('static', filename='js/map.js')}}"></script>
 	</head>
 	<body>
 		<div class="container-fluid">
-            {# {% include "_navbar.html" %} #}
-			<div class="row">
-				<div class="col-xs-8">
-					<div class="row">
-						<div id="map-canvas" class="col-xs-12"></div>
-						<div id="popup" class="col-xs-12"></div>
-					</div>
-				</div>
-				{% include "_sidebar.html" %}
-			</div>
+			{% block content %}{% endblock %}
 		</div>
 	</body>
 </html>
