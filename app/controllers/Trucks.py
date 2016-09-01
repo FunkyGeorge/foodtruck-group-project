@@ -26,20 +26,10 @@ class Trucks(Controller):
         self.createReminder()
         return self.load_view('index.html')
 
-    def feedback(self):
-        if not 'id' in session:
-            # flash("Log in to use this feature")
-            return jsonify({'status': 'false'})
-
-        if not request.form['truckName']:
-            return jsonify({'status': 'false'})
-        if request.form['action'] == 'Favorite':
+    def favorite(self):
+        if 'id' in session:
             truck = self.models['Truck'].getTruck(request.form['truckName'])
             self.models['Truck'].favorite(truck, session['id'])
-        elif request.form['action'] == 'Leave a Review':
-            truck = self.models['Truck'].getTruck(request.form['truckName'])
-            #show review method
-
         return jsonify({'status': 'true'})
 
     def review(self):
@@ -52,8 +42,11 @@ class Trucks(Controller):
        return self.load_view('_getReviews.html', reviews=reviews)
 
     def getRating(self):
+        print "enter getRating"
         rating = self.models['Truck'].getRating(request.form)
+        print "after model call"
         rating='{0:.2g}'.format(rating)
+        print rating
         return jsonify({'rating': rating})
 
     def getFavs(self):
