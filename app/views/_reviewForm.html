@@ -17,12 +17,17 @@
 		<form action="/createReminder" method="post" id="reminder">
 			<input type="hidden" name="truckName" value="">
 			<input type="hidden" name="date" value="">
-			<p class="text-center"><button class="btn btn-primary">Send reminder to XXX-XXX-XXXX</button></p>
+            <p class="text-center">
+			{% if session['id'] %}
+                <button class="btn btn-primary">Send reminder to XXX-XXX-XXXX</button>
+			{% else %}
+                <button class="btn btn-primary" disabled="disabled">Login to schedule reminder text</button>
+			{% endif %}
+            </p>
 		</form>
 	</div>
 	<div id="reviews" class="col-xs-12">
 		<div class="review"></div>
-
 
 		<form action="/review" method="post" id="reviewBox">
 			<input type="hidden" id="frmReview" name="action" value="">
