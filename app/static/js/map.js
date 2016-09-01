@@ -96,47 +96,56 @@ $(document).ready(function() {
 function createMarkersFromJSON() {
     var icon = iconConstructor('#d12')
     $.getJSON("https://data.sfgov.org/api/views/jjew-r69b/rows.json", function(trucksjson) {
-        console.log(trucksjson['data'][1])
-        for (var i = 0; i < trucksjson['data'].length; i++) {
-            var obj = trucksjson['data'][i];
-            var latlong = new google.maps.LatLng(obj[29], obj[30]);
+        userFavs = $.get('/getFavs', function(favorites){
+            favIcon = iconConstructor('#fc0')
+            console.log(favorites['favorites']);
+            console.log(trucksjson['data'][1])
+            for (var i = 0; i < trucksjson['data'].length; i++) {
+                var obj = trucksjson['data'][i];
+                var latlong = new google.maps.LatLng(obj[29], obj[30]);
 
-            var marker = new google.maps.Marker({
-                position: latlong,
-                map: map,
-                title: obj[26],
-                dayOrder: obj[8],
-                startTime: moment(obj[18], "HH:mm"),
-                endTime: moment(obj[19], "HH:mm"),
-                menu: obj[15],
-                location: obj[13],
-                time: obj[14],
-                // icon: icon
-            });
+                var marker = new google.maps.Marker({
+                    position: latlong,
+                    map: map,
+                    title: obj[26],
+                    dayOrder: obj[8],
+                    startTime: moment(obj[18], "HH:mm"),
+                    endTime: moment(obj[19], "HH:mm"),
+                    menu: obj[15],
+                    location: obj[13],
+                    time: obj[14],
+                    // icon: icon
+                });
+                for (var j = 0; j < favorites['favorites'].length; j++) {
+                    if (marker.title == favorites['favorites'][j]['name']) {
+                        marker.setIcon(favIcon);
+                        marker.favorite = true;
+                    }
+                }
 
-            google.maps.event.addListener(marker, 'click', function(){
-                infowindow.close(); // Close previously opened infowindow
-                infowindow.setContent( "<div id='infowindow'>"+this.title+"<br>"+moment().to(this.endTime, true)+" left at location</div>");
-                infowindow.open(map, this);
+                google.maps.event.addListener(marker, 'click', function(){
+                    infowindow.close(); // Close previously opened infowindow
+                    infowindow.setContent( "<div id='infowindow'>"+this.title+"<br>"+moment().to(this.endTime, true)+" left at location</div>");
+                    infowindow.open(map, this);
 
-                openReviewBox(this);
-            });
+                    openReviewBox(this);
+                });
 
-            markers.push(marker);
-        }
-        getFavorites();
+                markers.push(marker);
+            };
+        });
         filterMarkers();
     });
 }
 
-function getFavorites() {
-    // Favorites
-    favIcon = iconConstructor('#fc0')
-    userFavs = $.get('/getFavs', function(res){
-        console.log(res);
-        return res;
-    });
-}
+// function getFavorites() {
+//     // Favorites
+//     favIcon = iconConstructor('#fc0')
+//     userFavs = $.get('/getFavs', function(res){
+//         console.log(res['favorites']);
+//         return res;
+//     });
+// }
 
 // Filters markers according to the filters set on sidebar. Only allows markers that
 // satisfy all filter criteria to remain visible, others are hidden.
@@ -178,6 +187,13 @@ function openReviewBox(arg) {
     $.post('/getRating',$('#reviewBox').serialize(), function(res){
         $('#reviewForm h4#truckName span.label').html(res['rating']+"/5 stars");
     })
+    if (arg.favorite == true) {
+        $('#reviewForm #favBox input[name="favorite"]').val(0)
+        $('#reviewForm #favBox button').removeClass("btn-success").addClass("btn-danger").html("Unfavorite")
+    } else {
+        $('#reviewForm #favBox input[name="favorite"]').val(1)
+        $('#reviewForm #favBox button').removeClass("btn-danger").addClass("btn-success").html("Favorite")
+    }
     populateReviews()
 }
 
