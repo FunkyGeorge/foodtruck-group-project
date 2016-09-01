@@ -27,10 +27,18 @@ class Trucks(Controller):
         return self.load_view('index.html')
 
     def favorite(self):
-        if 'id' in session:
-            truck = self.models['Truck'].getTruck(request.form['truckName'])
+        if not 'id' in session:
+            return jsonify({'status': 'false'})
+
+        truck = self.models['Truck'].getTruck(request.form['truckName'])
+        print "truck ID is ", truck
+        if request.form['favorite'] == '1':
             self.models['Truck'].favorite(truck, session['id'])
+        elif request.form['favorite'] == '0':
+            print "delete"
+            self.models['Truck'].unFav(truck, session['id'])
         return jsonify({'status': 'true'})
+        
 
     def review(self):
         truck = self.models['Truck'].getTruck(request.form['action'])
