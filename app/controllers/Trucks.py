@@ -31,11 +31,9 @@ class Trucks(Controller):
             return jsonify({'status': 'false'})
 
         truck = self.models['Truck'].getTruck(request.form['truckName'])
-        print "truck ID is ", truck
         if request.form['favorite'] == '1':
             self.models['Truck'].favorite(truck, session['id'])
         elif request.form['favorite'] == '0':
-            print "delete"
             self.models['Truck'].unFav(truck, session['id'])
         return jsonify({'status': 'true'})
         
@@ -50,11 +48,8 @@ class Trucks(Controller):
        return self.load_view('_getReviews.html', reviews=reviews)
 
     def getRating(self):
-        print "enter getRating"
         rating = self.models['Truck'].getRating(request.form)
-        print "after model call"
         rating='{0:.2g}'.format(rating)
-        print rating
         return jsonify({'rating': rating})
 
     def getFavs(self):
