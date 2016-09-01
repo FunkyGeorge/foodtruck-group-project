@@ -116,10 +116,13 @@ function createMarkersFromJSON() {
                     time: obj[14],
                     // icon: icon
                 });
-                for (var j = 0; j < favorites['favorites'].length; j++) {
-                    if (marker.title == favorites['favorites'][j]['name']) {
-                        marker.setIcon(favIcon);
-                        marker.favorite = true;
+
+                if (favorites['favorites']) {
+                    for (var j = 0; j < favorites['favorites'].length; j++) {
+                        if (marker.title == favorites['favorites'][j]['name']) {
+                            marker.setIcon(favIcon);
+                            marker.favorite = true;
+                        }
                     }
                 }
 
