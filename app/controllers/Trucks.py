@@ -59,7 +59,7 @@ class Trucks(Controller):
         user = self.models['User'].getUser(session['id'])
         data = {
             'user': user[0]['first_name'],
-            'phone': '+19092578727',
+            'phone': '+12096200032',
             'truck': request.form['truckName'],
             'time': request.form['date']
         }
@@ -82,7 +82,7 @@ def send_text(body, number):
     #Format number?
     client.messages.create(
         to=number,
-        from_='+12016853820',
+        from_='+12097796165',
         body=body
     )
 
