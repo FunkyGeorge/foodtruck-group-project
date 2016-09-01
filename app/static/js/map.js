@@ -177,6 +177,7 @@ function filterMarkers() {
 }
 
 function openReviewBox(arg) {
+    $('form#reviewBox')[0].reset();
     $('#frmReview').val(arg.title)
     $('#frmFav').val(arg.title)
     $('#reviewForm').slideDown();
