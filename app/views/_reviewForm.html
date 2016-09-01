@@ -1,8 +1,8 @@
 <hr>
 <div id="reviewForm" class="row">
 	<div id="truckInfo" class="col-xs-12">
-        <h4 class="text-center"></h4>
-        <form action="/favorite" method="post" id="favBox">
+		<h4 id="truckName" class="text-center"></h4>
+		<form action="/favorite" method="post" id="favBox">
 			<input type="hidden" name="truckName" id="frmFav" value="">
 			<button type="submit" class="btn btn-success btn-xs pull-right">Favorite</button>
 		</form>
@@ -16,7 +16,8 @@
 
 		<form action="/review" method="post" id="reviewBox">
 			<input type="hidden" id="frmReview" name="action" value="">
-			<label>Write a Review</label>
+			<h4 class="text-center">Leave a Review</h4>
+			{% if session['id'] %}
 			<textarea class="form-control" rows="3" name="text"></textarea>
 			<div class="rate">
 				<input type="radio" id="star5" name="rate" value="5" />
@@ -32,6 +33,9 @@
 			</div>
 
 			<button type="submit" class="btn btn-default pull-right">Submit</button>
+			{% else %}
+			<label>Please log in to write a review</label>
+			{% endif %}
 		</form>
 
 	</div>
