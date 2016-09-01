@@ -22,7 +22,7 @@ routes['/register'] = 'Users#register'
 routes['POST']['/create'] = 'Users#create'
 routes['POST']['/login'] = 'Users#login'
 
-routes['POST']['/feedback'] = 'Trucks#feedback'
+routes['POST']['/favorite'] = 'Trucks#favorite'
 routes['POST']['/review'] = 'Trucks#review'
 routes['POST']['/populateReviews'] = 'Trucks#populateReviews'
 routes['POST']['/getRating'] ='Trucks#getRating'

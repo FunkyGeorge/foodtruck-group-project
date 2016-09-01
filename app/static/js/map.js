@@ -70,9 +70,9 @@ $(document).ready(function() {
         $('#pressed').val($(this).val())
     })
 
-    $('form#feedbackBox').on('submit', function(e) {
+    $('form#favBox').on('submit', function(e) {
         e.preventDefault();
-        $.post('/feedback',$(this).serialize(), function(res){
+        $.post('/favorite',$(this).serialize(), function(res){
 
         })
     })
@@ -133,7 +133,7 @@ function createMarkersFromJSON() {
 function filterMarkers() {
     // Favorites
     favIcon = iconConstructor('#fc0')
-    userFavs = $.get('/getFavs', function(res) {
+    userFavs = $.get('/getFavs', function(res){
         console.log(res);
         return res;
     });
@@ -165,6 +165,7 @@ function filterMarkers() {
 
 function openReviewBox(arg) {
     $('#frmReview').val(arg.title)
+    $('#frmFav').val(arg.title)
     $('#reviewForm').slideDown();
     $('#reviewForm h4').html(arg.title)
     $('#reviewForm #truckLocation').html(arg.location + '<br>' + arg.time)
