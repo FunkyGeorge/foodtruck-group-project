@@ -1,7 +1,3 @@
-"""
-    Database Specific Configuration File
-"""
-""" Put Generic Database Configurations here """
 import os
 
 class DBConfig(object):

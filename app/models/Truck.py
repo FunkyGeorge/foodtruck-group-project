@@ -28,6 +28,15 @@ class Truck(Model):
 
     	return True
 
+    def unFav(self, truck, user):
+        sql = "DELETE FROM favorites WHERE user_id = :user AND truck_id = :truck"
+        data ={
+            'user': user,
+            'truck': truck
+        }
+        self.db.query_db(sql, data)
+        return True
+
     def leaveReview(self, truck, form, id):
         sql = "INSERT INTO reviews (review, rating, created_at, updated_at, user_id, truck_id) "\
         "VALUES (:review, :rating, NOW(), NOW(), :id, :truck)"
