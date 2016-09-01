@@ -17,7 +17,7 @@ class Users(Controller):
         # access_token = oauth.Token(key=ACCESS_KEY, secret=ACCESS_SECRET)
         # global client
         # client = oauth.Client(consumer, access_token)
-        
+
         self.load_model('User')
         self.db = self._app.db
         # self.twitter = oauth.remote_app('twitter',
@@ -52,7 +52,7 @@ class Users(Controller):
         return redirect('/')
 
     def register(self):
-        return self.load_view('authentication.html')
+        return self.load_view('login.html')
 
     def create(self):
         valid = True
@@ -72,12 +72,12 @@ class Users(Controller):
             for error in check['errors']:
                 flash(error, 'password')
                 valid = False
-        
+
         if valid:
             session['id'] = self.models['User'].addUser(form)
             return redirect('/')
         else:
-            return self.load_view('authentication.html')
+            return self.load_view('login.html')
 
     def login(self):
         user = self.models['User'].validateLogin(request.form)
