@@ -28,7 +28,7 @@ CREATE TABLE `trucks` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +37,7 @@ CREATE TABLE `trucks` (
 
 LOCK TABLES `trucks` WRITE;
 /*!40000 ALTER TABLE `trucks` DISABLE KEYS */;
-INSERT INTO `trucks` VALUES (1,'Mario\'s Colombian and Mexican Food'),(2,'BH & MT LLC'),(3,'San Francisco Carts & Concessions, Inc. DBA Stanley\'s Steamers Hot Dogs'),(4,'D & T Catering'),(5,'Anas Goodies Catering'),(6,'BHUK Burger'),(7,'Natan\'s Catering'),(8,''),(9,'John\'s Catering #5'),(10,'El Gallo Jiro'),(11,'Leo\'s Hot Dogs');
+INSERT INTO `trucks` VALUES (1,'Mario\'s Colombian and Mexican Food'),(2,'BH & MT LLC'),(3,'San Francisco Carts & Concessions, Inc. DBA Stanley\'s Steamers Hot Dogs'),(4,'D & T Catering'),(5,'Anas Goodies Catering'),(6,'BHUK Burger'),(7,'Natan\'s Catering'),(8,''),(9,'John\'s Catering #5'),(10,'El Gallo Jiro'),(11,'Leo\'s Hot Dogs'),(12,'Linda\'s Catering'),(13,'Got Snacks'),(14,'Tacos Santana'),(15,'French Creme Brulee'),(16,'Del Popolo, LLC.'),(17,'Taza Halal Cart'),(18,'El Tonayense #60'),(19,'Yummy Hot Dogs'),(20,'Subs on Hubs'),(21,'Expresso Subito, LLC.'),(22,'Tacos Rodriguez'),(23,'Sinthya\'s Hot Dogs'),(24,'Philz Coffee Truck'),(25,'Mang Hang Catering'),(26,'DO UC US Mobile Catering');
 /*!40000 ALTER TABLE `trucks` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-31 12:14:12
+-- Dump completed on 2016-09-01 12:58:02
