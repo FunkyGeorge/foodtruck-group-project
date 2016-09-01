@@ -5,4 +5,4 @@ venv/*
 pylotVenv/*
 __pycache__/*
 twilioauth.py
-database.py
+*/database.py
