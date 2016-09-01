@@ -2,8 +2,9 @@ html,body {
 	height: 100%;
 }
 
-#map-canvas {
+#map-canvas, .container-fluid {
 	height: 100vh;
+	overflow: hidden;
 }
 
 
