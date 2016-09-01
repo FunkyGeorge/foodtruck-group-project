@@ -93,7 +93,26 @@ $(document).ready(function() {
         $(this).siblings().removeClass("active")
         $(this).addClass("active")
         filterMarkers();
-    })
+    });
+
+    $('#filters form#reminder').on('submit', function(e) {
+        e.preventDefault();
+        console.log($('#filters form#reminder input[name=date]').val())
+        var reminderTime = moment($('#filters form#reminder input[name=date]').val(), "HH:mm:ss")
+        console.log(reminderTime)
+        // Set up # of days to add to startTime
+        var intDay = parseInt($('#filters #day button.active').val());
+        if (moment().day() > intDay) {
+            intDay += 7
+        }
+        console.log(intDay)
+        reminderTime.day(intDay)
+        console.log(reminderTime)
+        $('#filters form#reminder input[name=date]').val(reminderTime)
+        $.post('/createReminder', $(this).serialize(), function(res) {
+            $('#filters form#reminder button').removeClass("btn-primary").addClass("btn-success").html("Reminder sent!")
+        })
+    });
 });
 
 // Retrives JSON data, creates a map marker for each including event listeners. Pushes
@@ -109,6 +128,7 @@ function createMarkersFromJSON() {
                 var obj = trucksjson['data'][i];
                 var latlong = new google.maps.LatLng(obj[29], obj[30]);
 
+
                 var marker = new google.maps.Marker({
                     position: latlong,
                     map: map,
@@ -119,8 +139,11 @@ function createMarkersFromJSON() {
                     menu: obj[15],
                     location: obj[13],
                     time: obj[14],
-                    // icon: icon
                 });
+
+                if (i < 5) {
+                    console.log(marker.startTime)
+                }
 
                 if (favorites['favorites']) {
                     for (var j = 0; j < favorites['favorites'].length; j++) {
@@ -197,10 +220,12 @@ function openReviewBox(arg) {
     $('form#reviewBox')[0].reset();
     $('#frmReview').val(arg.title)
     $('#frmFav').val(arg.title)
+    $('#filters form#reminder input[name="truckName"]').val(arg.title)
     $('#reviewForm').slideDown();
     $('#reviewForm h4#truckName').html(arg.title + " <span class='label label-warning'></span>")
     $('#reviewForm #truckLocation').html(arg.location + '<br>' + arg.time)
     $('#reviewForm #menu').html(arg.menu)
+    $('#filters form#reminder input[name="date"]').val(arg.startTime);
     // $('#reviewForm #reviews .review').html("""");
     $.post('/getRating',$('#reviewBox').serialize(), function(res){
         $('#reviewForm h4#truckName span.label').html(res['rating']+"/5 stars");
