@@ -38,6 +38,18 @@ class User(Model):
 
         return {"valid": valid, "errors": errors}
 
+	def validateNumber(self, form):
+		valid = True
+		errors = []
+
+		if not form['number']:
+			errors.append("Please input your number")
+			valid = False
+		elif len(form['number']) < 10:
+			errors.append("Number missing digits")
+			valid = False
+		return {'valid': valid, "errors": errors}
+
     def validatePassword(self, form):
         valid = True
         errors = []
@@ -58,41 +70,19 @@ class User(Model):
         return {"valid": valid, "errors": errors}
 
     def addUser(self, form):
-        query = "INSERT INTO users (first_name, last_name, email, access_key, created_at, updated_at, location) "\
-        "VALUES (:fname, :lname, :email, :key, NOW(), NOW(), :location);"
+        query = "INSERT INTO users (first_name, last_name, email, access_key, created_at, updated_at, location, phone) "\
+        "VALUES (:fname, :lname, :email, :key, NOW(), NOW(), :location, :number);"
         data = {
             'fname': form['fname'],
             'lname': form['lname'],
             'email': form['email'],
-            'key': form['pword'],  #Password not encrypted yet since not sure if use password or OAuth key
+            'key': form['pword'], #Password not encrypted yet since not sure if use password or OAuth key
+			'number': form['number'],
             'location': "(37.7749, -122.4194)"
         }
         return self.db.query_db(query, data)
 
-   
+
     def validateLogin(self, data):
         query = "SELECT * FROM users WHERE email = :email AND access_key = :password"
         return self.db.query_db(query, data)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
