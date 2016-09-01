@@ -51,10 +51,10 @@ class Trucks(Controller):
 
     def getFavs(self):
         if 'id' in session:
-            favorites = self.models['Truck'].favsList(session['id'])
-            return jsonify(favorites)
+            favorites = self.models['Truck'].favsList(session['id']);
+            return jsonify({'favorites': favorites});
         else:
-            return jsonify({'status': 'false'})
+            return jsonify({'status': 'false'});
 
     def createReminder(self):
         #get formatted date

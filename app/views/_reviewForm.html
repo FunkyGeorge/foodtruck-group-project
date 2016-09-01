@@ -4,7 +4,12 @@
 		<h4 id="truckName" class="text-center"></h4>
 		<form action="/favorite" method="post" id="favBox">
 			<input type="hidden" name="truckName" id="frmFav" value="">
+			{% if session['id'] %}
+			<input type="hidden" name="favorite" value="1">
 			<button type="submit" class="btn btn-success btn-xs pull-right">Favorite</button>
+			{% else %}
+			<button type="submit" class="btn btn-success btn-xs pull-right" disabled="disabled">Login to favorite</button>
+			{% endif %}
 		</form>
 		<p id="avgRating"></p>
 		<p id="truckLocation"></p>

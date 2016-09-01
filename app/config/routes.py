@@ -26,7 +26,7 @@ routes['POST']['/favorite'] = 'Trucks#favorite'
 routes['POST']['/review'] = 'Trucks#review'
 routes['POST']['/populateReviews'] = 'Trucks#populateReviews'
 routes['POST']['/getRating'] ='Trucks#getRating'
-routes['POST']['/getFavs'] = 'Trucks#getFavs'
+routes['GET']['/getFavs'] = 'Trucks#getFavs'
 routes['GET']['/twiliotest'] = 'Trucks#index'
 """
     You can add routes and specify their handlers as follows:
