@@ -4,11 +4,13 @@ import twilioauth
 from apscheduler.schedulers.blocking import BlockingScheduler
 sched = BlockingScheduler()
 
-def send_text(body):
+#Twilio config
+def send_text(body, number):
     client = TwilioRestClient(twilioauth.account, twilioauth.token)
+    #Format number?
     client.messages.create(
         to='+12096200032',
-        from_='+12097796165',
+        from_=number,
         body=body
     )
 
@@ -17,13 +19,12 @@ class Trucks(Controller):
         super(Trucks, self).__init__(action)
 
         self.load_model('Truck')
+        self.load_model('User')
         self.db = self._app.db
 
 
     # INDEX
     def index(self):
-        send_text("testing123")
-        self.createReminder()
         return self.load_view('index.html')
 
     def favorite(self):
@@ -31,11 +32,9 @@ class Trucks(Controller):
             return jsonify({'status': 'false'})
 
         truck = self.models['Truck'].getTruck(request.form['truckName'])
-        print "truck ID is ", truck
         if request.form['favorite'] == '1':
             self.models['Truck'].favorite(truck, session['id'])
         elif request.form['favorite'] == '0':
-            print "delete"
             self.models['Truck'].unFav(truck, session['id'])
         return jsonify({'status': 'true'})
         
@@ -50,11 +49,8 @@ class Trucks(Controller):
        return self.load_view('_getReviews.html', reviews=reviews)
 
     def getRating(self):
-        print "enter getRating"
         rating = self.models['Truck'].getRating(request.form)
-        print "after model call"
         rating='{0:.2g}'.format(rating)
-        print rating
         return jsonify({'rating': rating})
 
     def getFavs(self):
@@ -64,12 +60,65 @@ class Trucks(Controller):
         else:
             return jsonify({'status': 'false'});
 
-    def createReminder(self):
+
+#---------------Twilio Stuff------------------------------------------
+    def configReminder(self):
+        user = self.models['User'].getUser(session['id'])
+        #get message body
+        data = {
+            'user': user['first_name'],
+            'phone': user['number'],
+            'truck': request.form['truckName'],
+            'time': request.form['date']
+        }
+        body = "Hello",data['name'],"you have set a reminder for",data['truck'],"at",data['time']
+        send_text(body, user['number'])
+        self.createReminder(data)
+        return self.load_view('index.html')
+
+
+    def createReminder(self, data):
         #get formatted date
         #get arg string
-        sched.add_job( self.reminderText, 'date', run_date="2016-08-31 16:05:2", args=["testing456"])
-        # sched.add_job( self.reminderText, args=["testing456"])
+        sched.add_job( self.reminderText, 'date', run_date=data['time'], args=[data['truck'],"is here!!"])
         sched.start()
 
     def reminderText(self, body):
         send_text(body)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
