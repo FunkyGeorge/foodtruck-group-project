@@ -2,7 +2,7 @@ from system.core.controller import *
 from twilio.rest import TwilioRestClient
 import twilioauth
 from apscheduler.schedulers.background import BackgroundScheduler
-sched = BackgroundScheduler()
+sched = BackgroundScheduler(timezone='PST')
 sched.start()
 
 class Trucks(Controller):
