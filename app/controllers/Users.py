@@ -44,11 +44,6 @@ class Users(Controller):
             for error in check['errors']:
                 flash(error, 'password')
                 valid = False
-        check = self.models['User'].validateNumber(form)
-        if not check['valid']:
-            for error in check['errors']:
-                flash(error, 'number')
-                valid = False
 
         if valid:
             session['id'] = self.models['User'].addUser(form)
