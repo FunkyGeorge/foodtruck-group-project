@@ -16,6 +16,7 @@ html,body {
 #filters {
 	height: 100vh;
 	overflow: scroll;
+	background: #faebd7;
 }
 
 /* RATING CSS (minified) */
