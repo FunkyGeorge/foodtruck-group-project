@@ -108,11 +108,12 @@ $(document).ready(function() {
         if (moment().day() > intDay) {
             intDay += 7
         }
+        reminderTime.day(intDay)
         if (reminderTime.isBefore()) {
             reminderTime = moment().add(20, 'seconds')
             console.log(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         }
-
+        console.log(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         $('#filters form#reminder input[name=date]').val(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         $.post('/createReminder', $(this).serialize(), function(res) {
             $('#filters form#reminder button').removeClass("btn-primary").addClass("btn-success").html("Reminder sent!")
