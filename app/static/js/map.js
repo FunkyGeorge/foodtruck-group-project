@@ -138,7 +138,7 @@ function createMarkersFromJSON() {
                     endTime: moment(obj[19], "HH:mm"),
                     menu: obj[15],
                     location: obj[13],
-                    time: obj[14],
+                    info: obj[14],
                 });
 
                 if (favorites['favorites']) {
@@ -228,7 +228,7 @@ function openReviewBox(arg) {
     $('#filters form#reminder input[name="truckName"]').val(arg.title)
     $('#reviewForm').slideDown();
     $('#reviewForm h4#truckName').html(arg.title + " <span class='label label-warning'></span>")
-    $('#reviewForm #truckLocation').html(arg.location + '<br>' + arg.time)
+    $('#reviewForm #truckLocation').html(arg.location + '<br>' + arg.info)
     $('#reviewForm #menu').html(arg.menu)
     $('#filters form#reminder input[name="date"]').val(arg.startTime);
     // $('#reviewForm #reviews .review').html("""");
