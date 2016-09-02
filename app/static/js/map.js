@@ -66,6 +66,9 @@ $(document).ready(function() {
         filterMarkers();
     });
 
+    // Little formatting
+    $('#filters form#reminder button').html("Send reminder to (555) 555-5555")
+
     $('.btnFeedback').click(function(){
         $('#pressed').val($(this).val())
     })
