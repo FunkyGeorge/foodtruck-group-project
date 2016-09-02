@@ -99,14 +99,15 @@ $(document).ready(function() {
         e.preventDefault();
         console.log($('#filters form#reminder input[name=date]').val())
         var reminderTime = moment($('#filters form#reminder input[name=date]').val(), "LLLL")
-        console.log(reminderTime.format("HH:mm:ss"))
+        console.log(reminderTime.format("LLLL"))
         // Set up # of days to add to startTime
         var intDay = parseInt($('#filters #day button.active').val());
         if (moment().day() > intDay) {
             intDay += 7
         }
         if (reminderTime.isBefore()) {
-            reminderTime = moment().add(20, 'seconds').add(7, 'hour')
+            reminderTime = moment().add(20, 'seconds').add(7, 'hours')
+            console.log(reminderTime.format("LLLL"))
         }
 
         $('#filters form#reminder input[name=date]').val(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
