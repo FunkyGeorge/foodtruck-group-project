@@ -67,7 +67,7 @@ $(document).ready(function() {
     });
 
     // Little formatting
-    $('#filters form#reminder button').html("Send reminder to (555) 555-5555")
+    $('#filters form#reminder button').html("Send reminder to (209) 620-0032")
 
     $('.btnFeedback').click(function(){
         $('#pressed').val($(this).val())
