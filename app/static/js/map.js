@@ -108,7 +108,7 @@ $(document).ready(function() {
         if (reminderTime.isBefore()) {
             reminderTime = moment().add(20, 'seconds')
         }
-// .day(intDay)
+
         $('#filters form#reminder input[name=date]').val(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         $.post('/createReminder', $(this).serialize(), function(res) {
             $('#filters form#reminder button').removeClass("btn-primary").addClass("btn-success").html("Reminder sent!")
@@ -148,10 +148,21 @@ function createMarkersFromJSON() {
                         }
                     }
                 }
-
                 google.maps.event.addListener(marker, 'click', function(){
+                    var intDay = parseInt($('#filters #day button.active').val());
+                    if (moment().day() > intDay) {
+                        intDay += 7
+                    }
+                    this.time = moment(this.startTime, "HH:mm").day(intDay)
+                    console.log(this.time.format("LLLL"))
+                    if (moment().isAfter(this.time)) {
+                        this.message = moment().to(this.endTime, true)+" left at location"
+                    } else {
+                        this.message = "Opens " + moment().calendar(this.time)
+                    }
+                    console.log(this.message)
                     infowindow.close(); // Close previously opened infowindow
-                    infowindow.setContent( "<div id='infowindow'>"+this.title+"<br>"+moment().to(this.endTime, true)+" left at location</div>");
+                    infowindow.setContent( "<div id='infowindow'>"+this.title+"<br>"+ this.message +"</div>");
                     infowindow.open(map, this);
 
                     openReviewBox(this);
@@ -159,8 +170,8 @@ function createMarkersFromJSON() {
 
                 markers.push(marker);
             };
+            filterMarkers();
         });
-        filterMarkers();
     });
 }
 
