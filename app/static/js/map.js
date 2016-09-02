@@ -106,7 +106,7 @@ $(document).ready(function() {
             intDay += 7
         }
         if (reminderTime.isBefore()) {
-            reminderTime = moment().add(20, 'seconds')
+            reminderTime = moment().add(20, 'seconds').add(7, 'hour')
         }
 
         $('#filters form#reminder input[name=date]').val(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
