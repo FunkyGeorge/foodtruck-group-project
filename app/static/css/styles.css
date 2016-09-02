@@ -7,16 +7,22 @@ html,body {
 	overflow: hidden;
 }
 
+#map-canvas {
+	width: 100vw;
+}
 
 #reviewBox {
 	position: relative;
 	bottom: 0;
 }
 
+
+	
 #filters {
 	height: 100vh;
 	overflow: scroll;
 	background: #faebd7;
+	background-color: rgba(250, 235, 215, 0.75);
 }
 
 /* RATING CSS (minified) */

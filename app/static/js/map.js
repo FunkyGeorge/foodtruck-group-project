@@ -62,9 +62,11 @@ $(document).ready(function() {
     initalize();
     // Setup event listeners
     $("#filters #options input").on('change', function() {
-        console.log("input change")
         filterMarkers();
     });
+
+    // Little formatting
+    $('#filters form#reminder button').html("Send reminder to (209) 620-0032")
 
     $('.btnFeedback').click(function(){
         $('#pressed').val($(this).val())
@@ -97,18 +99,16 @@ $(document).ready(function() {
 
     $('#filters form#reminder').on('submit', function(e) {
         e.preventDefault();
-        console.log($('#filters form#reminder input[name=date]').val())
         var reminderTime = moment($('#filters form#reminder input[name=date]').val(), "LLLL")
-        console.log(reminderTime.format("HH:mm:ss"))
         // Set up # of days to add to startTime
         var intDay = parseInt($('#filters #day button.active').val());
         if (moment().day() > intDay) {
             intDay += 7
         }
+        reminderTime.day(intDay)
         if (reminderTime.isBefore()) {
             reminderTime = moment().add(20, 'seconds')
         }
-
         $('#filters form#reminder input[name=date]').val(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         $.post('/createReminder', $(this).serialize(), function(res) {
             $('#filters form#reminder button').removeClass("btn-primary").addClass("btn-success").html("Reminder sent!")
@@ -122,8 +122,6 @@ function createMarkersFromJSON() {
     $.getJSON("https://data.sfgov.org/api/views/jjew-r69b/rows.json", function(trucksjson) {
         userFavs = $.get('/getFavs', function(favorites){
             favIcon = iconConstructor('#fc0')
-            console.log(favorites['favorites']);
-            console.log(trucksjson['data'][1])
             for (var i = 0; i < trucksjson['data'].length; i++) {
                 var obj = trucksjson['data'][i];
                 var latlong = new google.maps.LatLng(obj[29], obj[30]);
@@ -187,7 +185,6 @@ function handleFavorites(marker) {
 //     // Favorites
 //     favIcon = iconConstructor('#fc0')
 //     userFavs = $.get('/getFavs', function(res){
-//         console.log(res['favorites']);
 //         return res;
 //     });
 // }
@@ -195,6 +192,7 @@ function handleFavorites(marker) {
 // Filters markers according to the filters set on sidebar. Only allows markers that
 // satisfy all filter criteria to remain visible, others are hidden.
 function filterMarkers() {
+    infowindow.close(); // Close previously opened infowindow
 
     circle.setCenter(userMarker.position)
     var maxUserDistance = parseInt($("#filters input[name='distance']").val())
@@ -231,7 +229,7 @@ function openReviewBox(arg) {
     $('#reviewForm #truckLocation').html(arg.location + '<br>' + arg.info)
     $('#reviewForm #menu').html(arg.menu)
     $('#filters form#reminder input[name="date"]').val(arg.startTime);
-    // $('#reviewForm #reviews .review').html("""");
+    $('#filters form#reminder button').removeClass('btn-success').addClass('btn-primary').html("Send reminder to (209) 620-0032")
     $.post('/getRating',$('#reviewBox').serialize(), function(res){
         $('#reviewForm h4#truckName span.label').html(res['rating']+"/5 stars");
     })
