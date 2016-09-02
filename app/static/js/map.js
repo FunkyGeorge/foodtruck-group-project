@@ -154,13 +154,11 @@ function createMarkersFromJSON() {
                         intDay += 7
                     }
                     this.time = moment(this.startTime, "HH:mm").day(intDay)
-                    console.log(this.time.format("LLLL"))
                     if (moment().isAfter(this.time)) {
                         this.message = moment().to(this.endTime, true)+" left at location"
                     } else {
-                        this.message = "Opens " + moment().calendar(this.time)
+                        this.message = "Opens " + this.time.calendar()
                     }
-                    console.log(this.message)
                     infowindow.close(); // Close previously opened infowindow
                     infowindow.setContent( "<div id='infowindow'>"+this.title+"<br>"+ this.message +"</div>");
                     infowindow.open(map, this);
