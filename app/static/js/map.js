@@ -107,7 +107,7 @@ $(document).ready(function() {
         }
         if (reminderTime.isBefore()) {
             reminderTime = moment().add(20, 'seconds').add(7, 'hours')
-            console.log(reminderTime.format("LLLL"))
+            console.log(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         }
 
         $('#filters form#reminder input[name=date]').val(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
