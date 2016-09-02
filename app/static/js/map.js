@@ -199,6 +199,7 @@ function handleFavorites(marker) {
 // Filters markers according to the filters set on sidebar. Only allows markers that
 // satisfy all filter criteria to remain visible, others are hidden.
 function filterMarkers() {
+    infowindow.close(); // Close previously opened infowindow
 
     circle.setCenter(userMarker.position)
     var maxUserDistance = parseInt($("#filters input[name='distance']").val())
