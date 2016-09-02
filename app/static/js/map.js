@@ -109,7 +109,7 @@ $(document).ready(function() {
             intDay += 7
         }
         if (reminderTime.isBefore()) {
-            reminderTime = moment().add(20, 'seconds').add(7, 'hours')
+            reminderTime = moment().add(20, 'seconds')
             console.log(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         }
 
