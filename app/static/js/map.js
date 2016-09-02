@@ -62,7 +62,6 @@ $(document).ready(function() {
     initalize();
     // Setup event listeners
     $("#filters #options input").on('change', function() {
-        console.log("input change")
         filterMarkers();
     });
 
@@ -100,9 +99,7 @@ $(document).ready(function() {
 
     $('#filters form#reminder').on('submit', function(e) {
         e.preventDefault();
-        console.log($('#filters form#reminder input[name=date]').val())
         var reminderTime = moment($('#filters form#reminder input[name=date]').val(), "LLLL")
-        console.log(reminderTime.format("LLLL"))
         // Set up # of days to add to startTime
         var intDay = parseInt($('#filters #day button.active').val());
         if (moment().day() > intDay) {
@@ -113,7 +110,6 @@ $(document).ready(function() {
             reminderTime = moment().add(20, 'seconds')
             console.log(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         }
-        console.log(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         $('#filters form#reminder input[name=date]').val(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         $.post('/createReminder', $(this).serialize(), function(res) {
             $('#filters form#reminder button').removeClass("btn-primary").addClass("btn-success").html("Reminder sent!")
@@ -127,8 +123,6 @@ function createMarkersFromJSON() {
     $.getJSON("https://data.sfgov.org/api/views/jjew-r69b/rows.json", function(trucksjson) {
         userFavs = $.get('/getFavs', function(favorites){
             favIcon = iconConstructor('#fc0')
-            console.log(favorites['favorites']);
-            console.log(trucksjson['data'][1])
             for (var i = 0; i < trucksjson['data'].length; i++) {
                 var obj = trucksjson['data'][i];
                 var latlong = new google.maps.LatLng(obj[29], obj[30]);
@@ -192,7 +186,6 @@ function handleFavorites(marker) {
 //     // Favorites
 //     favIcon = iconConstructor('#fc0')
 //     userFavs = $.get('/getFavs', function(res){
-//         console.log(res['favorites']);
 //         return res;
 //     });
 // }
@@ -237,7 +230,7 @@ function openReviewBox(arg) {
     $('#reviewForm #truckLocation').html(arg.location + '<br>' + arg.info)
     $('#reviewForm #menu').html(arg.menu)
     $('#filters form#reminder input[name="date"]').val(arg.startTime);
-    // $('#reviewForm #reviews .review').html("""");
+    $('#filters form#reminder button').removeClass('btn-success').addClass('btn-primary').html("Send reminder to (209) 620-0032")
     $.post('/getRating',$('#reviewBox').serialize(), function(res){
         $('#reviewForm h4#truckName span.label').html(res['rating']+"/5 stars");
     })
