@@ -38,17 +38,23 @@ class User(Model):
 
         return {"valid": valid, "errors": errors}
 
-	def validateNumber(self, form):
-		valid = True
-		errors = []
+    def validateNumber(self, form):
+        valid = True
+        errors = []
 
-		if not form['number']:
-			errors.append("Please input your number")
-			valid = False
-		elif len(form['number']) < 10:
-			errors.append("Number missing digits")
-			valid = False
-		return {'valid': valid, "errors": errors}
+        if not form['number']:
+            errors.append("Please input your number")
+            valid = False
+        elif len(form['number']) != 10:
+            errors.append("Number missing digits")
+            valid = False
+        else:
+            try:
+                float(form['number'])
+            except:
+                valid = False
+                errors.append("Can only contain numbers")
+        return {'valid': valid, "errors": errors}
 
     def validatePassword(self, form):
         valid = True

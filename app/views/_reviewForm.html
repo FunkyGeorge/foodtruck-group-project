@@ -17,6 +17,7 @@
 		<form action="/createReminder" method="post" id="reminder">
 			<input type="hidden" name="truckName" value="">
 			<input type="hidden" name="date" value="">
+			<input type="hidden" name="location" value="">
             <p class="text-center">
 			{% if session['id'] %}
 			<button class="btn btn-primary">Send reminder to {{user['phone']}}</button>

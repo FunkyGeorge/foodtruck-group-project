@@ -2,7 +2,7 @@ from system.core.controller import *
 from twilio.rest import TwilioRestClient
 import twilioauth
 from apscheduler.schedulers.background import BackgroundScheduler
-sched = BackgroundScheduler(timezone='PST')
+sched = BackgroundScheduler()
 sched.start()
 
 class Trucks(Controller):
@@ -61,7 +61,8 @@ class Trucks(Controller):
             'user': user[0]['first_name'],
             'phone': '+12096200032',
             'truck': request.form['truckName'],
-            'time': request.form['date']
+            'time': request.form['date'],
+            'location': request.form['location']
         }
         body = "Hello " + data['user'] + " you have set a reminder for " + data['truck'] + " at " + data['time']
         send_text(body, data['phone'])
@@ -71,7 +72,7 @@ class Trucks(Controller):
     def createReminder(self, data):
         #get formatted date
         #get arg string
-        body = data['truck'],"is here!!"
+        body = data['truck']+" has arrived at "+data['location']+"!"
         sched.add_job(self.reminderText, 'date', run_date=data['time'], args=[body, data['phone']])
 
     def reminderText(self, body, number):

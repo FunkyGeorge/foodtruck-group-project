@@ -66,7 +66,7 @@ $(document).ready(function() {
     });
 
     // Little formatting
-    $('#filters form#reminder button').html("Send reminder to (209) 620-0032")
+    //$('#filters form#reminder button').html("Send reminder to (209) 620-0032")
 
     $('.btnFeedback').click(function(){
         $('#pressed').val($(this).val())
@@ -224,12 +224,13 @@ function openReviewBox(arg) {
     $('#frmReview').val(arg.title)
     $('#frmFav').val(arg.title)
     $('#filters form#reminder input[name="truckName"]').val(arg.title)
+    $('#filters form#reminder input[name="location"]').val(arg.location)
     $('#reviewForm').slideDown();
     $('#reviewForm h4#truckName').html(arg.title + " <span class='label label-warning'></span>")
     $('#reviewForm #truckLocation').html(arg.location + '<br>' + arg.info)
     $('#reviewForm #menu').html(arg.menu)
     $('#filters form#reminder input[name="date"]').val(arg.startTime);
-    $('#filters form#reminder button').removeClass('btn-success').addClass('btn-primary').html("Send reminder to (209) 620-0032")
+    //$('#filters form#reminder button').removeClass('btn-success').addClass('btn-primary').html("Send reminder to (209) 620-0032")
     $.post('/getRating',$('#reviewBox').serialize(), function(res){
         $('#reviewForm h4#truckName span.label').html(res['rating']+"/5 stars");
     })

@@ -15,6 +15,16 @@ class Users(Controller):
     def index(self):
         if 'id' in session:
             user = self.models['User'].getUser(session['id'])
+            numString = "("
+            for i in range(0,3):
+                numString += user[0]["phone"][i]
+            numString += ") "
+            for i in range(3,6):
+                numString += user[0]["phone"][i]
+            numString += "-"
+            for i in range(6,10):
+                numString += user[0]["phone"][i]
+            user[0]["phone"] = numString
         else:
             user = ["User"]
         return self.load_view('index.html', user=user[0])
