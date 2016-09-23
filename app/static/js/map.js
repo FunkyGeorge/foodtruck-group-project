@@ -108,6 +108,7 @@ $(document).ready(function() {
         reminderTime.day(intDay)
         if (reminderTime.isBefore()) {
             reminderTime = moment().add(20, 'seconds')
+            console.log(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         }
         $('#filters form#reminder input[name=date]').val(reminderTime.format("YYYY-MM-DD HH:mm:ss"))
         $.post('/createReminder', $(this).serialize(), function(res) {

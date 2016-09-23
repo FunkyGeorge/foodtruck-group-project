@@ -1,39 +1,8 @@
 # Pylot MVC
 Pylot MVC is a lightweight MVC framework built in Python leveraging flask.
 
-# Installation
+Group website
 
-First make sure you have pip installed. If you don't have it installed there are great instructions here: https://pip.pypa.io/en/latest/installing.html
+This web app was built in Python and flask. The group built a majority of the app using AJAX.  We utilized Google Maps API and data from data.gov.
 
-Next install virtualenv
-```
-sudo pip install virtualenv
-```
-
-Clone pylot
-```
-PARENT
-git clone -b development https://github.com/Ketul-Patel/Pylot.git
-```
-
-cd into pylot (or rename and cd in) and run the setup file
-```
-cd Pylot
-python setup.py
-FOLLOW DIRECTIONS OUTLINED BY SETUP!
-```
-
-Now you can start your development server like so:
-```
-python manage.py runserver
-```
-
-Please read the Documentation in the Github Wiki for more information on how to get started!
-
-Enjoy! More details/features coming soon!
-
-# Changes:
-* Added pyenv .python-version file
-* Scaffolded sane defaults in welcome model and controller
-* Turn DB on by default
-* Created wsgi-project.ini file and deploymentguide.md
+We use MySQL for the back end.
